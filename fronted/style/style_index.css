@@ -15,6 +15,15 @@
     align-items: center;
 }
 
+.frame2{
+    display: flex; 
+    text-align: center; 
+    align-items: center;
+    justify-content:center;
+    flex-wrap: wrap;
+    gap: 2%;
+}
+
 .frame1 button {
     width: 498px; 
     height: 111px;
@@ -27,6 +36,22 @@
     background: #6AD0E1; 
     border-radius: 10px; 
     border: 3px black solid; 
+}
+
+.frame2 button {
+    width: 498px; 
+    height: 111px;
+    cursor: pointer;
+    text-align: center; 
+    color: black; 
+    font-size: 32px; 
+    font-weight: 400; 
+    word-wrap: break-word; 
+    background: #6AD0E1; 
+    border-radius: 10px; 
+    border: 3px black solid; 
+    flex-basis: 35%;
+    margin-top: 1%;
 }
 
 .click_text1{
@@ -60,4 +85,8 @@
 
 button:hover{
     background: rgba(105.97, 207.54, 225.46, 0.22);
+}
+
+a{
+    text-decoration: none;
 }
