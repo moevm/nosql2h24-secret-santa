@@ -93,11 +93,6 @@ input:-ms-input-placeholder {
     background: rgba(105.97, 207.54, 225.46, 0.22);
 }
 
-a{
-    text-decoration: none;
-    color: black;
-    margin-top: 2%;
-}
 
 .final{
     width: 498px; height: 111px; background: #6AD0E1; border-radius: 10px; border: 3px black solid; cursor: pointer;
@@ -109,5 +104,5 @@ a{
 }
 
 .text1{
-    color: black; font-size: 30px; font-family: Shantell Sans; font-weight: 400; word-wrap: break-word;
+    color: black; font-size: 30px; font-weight: 400; word-wrap: break-word;
 }
