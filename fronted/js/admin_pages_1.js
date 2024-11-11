@@ -2,13 +2,12 @@ const Button = document.getElementById("close");
 const favDialog = document.getElementById("favDialog");
 const dialog = document.querySelector("dialog");
 
-
 Button.addEventListener('click', () => {
     dialog.close();
 })
 
 window.addEventListener("load", function(){
-    let list = this.document.getElementById('list_people');
+    let listT = document.getElementById('list_team');
     for (let i =0; i < 5; i++){
         let div = document.createElement('div');
         div.style.display = "flex";
@@ -16,8 +15,8 @@ window.addEventListener("load", function(){
         div.style.justifyContent = "space-between";
         let text1 = this.document.createElement('div');
         let text2 = this.document.createElement('div');
-        text1.textContent = "Ваня";
-        text2.textContent = "1 команда";
+        text1.textContent = "1 команда";
+        text2.textContent = "Организатор Артем";
 
         text1.style.color = "black";
         text1.style.fontSize = "40px";
@@ -45,11 +44,12 @@ window.addEventListener("load", function(){
         div.style.border = "3px black solid";
         div.style.marginTop = "1%";
         div.style.cursor = "pointer";
-        div.id = i + "human";
-        list.appendChild(div);
+        div.id = i + "team";
+        listT.appendChild(div);
         div.addEventListener('click', ()=>{
             favDialog.showModal();
         });
     }
 });
+
 

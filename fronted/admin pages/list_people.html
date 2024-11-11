@@ -7,12 +7,23 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Список людей</title>
     </head>
-    <body>
+    <body> 
         <div class="pageList1">
-            <div id="list_people" class="list">
-            </div>
+            <dialog class="dialog1" id="favDialog">
+                <div style="width: 678px; height: 600px">
+                    <span style=" font-weight: 700; ">Анкета пользователя<br/></span>
+                    <span style=" font-weight: 400; ">Роль: игрок<br/>Имя: Иван<br/>Эл. почта: Ivan@yandex.ru<br/>Номер телефона: +7-(9**)-***-**-**<br/>Адрес доставки: г. Москва улица **** дом *** кв. **<br/>Почтовый индекс: ******<br/>Пожелания и что дарить не стоит: Мне хотелось бы получить на Новый год много интересных и вкусных сладостей:)<br/><br/></span>
+                    <span style=" font-weight: 700; ">Информация о команде<br/></span>
+                    <span style=" font-weight: 400; ">Номер команды: 1<br/>Организатор команды: Артем<br/><br/></span>
+                    <span style=" font-weight: 700; ">Информация по операции Тайный Санта<br/></span>
+                    <span style=" font-weight: 400; ">Кому дарит: Костя<br/>Чек оплаты: загружен<br/>Состояние подарка для получателя: Отправлен<br/>Состояния подарка для игрока: Не отправлен<br/>Тип подарка для игрока: Не указан <br/></span>
+                </div>
+                <button id="close">Cancel</button>
+            </dialog>
+            <div id="list_people" class="list"></div>
             <div><button class="return" onclick="window.location.href='../admin.html'">Вернуться назад</button></div>
         </div>
+        
     </body>
-    <script src="../js/admin_pages.js"></script>
+    <script src="../js//admin_pages.js"></script>
 </html>
