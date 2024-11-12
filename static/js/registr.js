@@ -36,23 +36,23 @@ function savePeople() {
     for (let i = 2; i < form.children.length; i+=2) {
             teamInfo.players.push({'name': form.children[i].value, 'email': form.children[i+1].value})
     }
-    localStorage.setItem('teamInfo', JSON.stringify(teamInfo))
+    localStorage.setItem('team_info', JSON.stringify(teamInfo))
 }
 
 function saveMetaInfo() {
-    let teamInfo = JSON.parse(localStorage.getItem('teamInfo'));
+    let teamInfo = JSON.parse(localStorage.getItem('team_info'));
 
-    let formDeadline = document.getElementById('form_deadline').value;
-    let chequeDeadline = document.getElementById('cheque_deadline').value;
-    let giftDeadline = document.getElementById('gift_deadline').value;
+    let formDeadline = document.getElementById('form_date').value;
+    let chequeDeadline = document.getElementById('purchase_date').value;
+    let giftDeadline = document.getElementById('send_date').value;
     let startPrice = document.getElementById('start_price').value;
     let endPrice = document.getElementById('end_price').value;
 
-    teamInfo.formDeadline = formDeadline;
-    teamInfo.chequeDeadline = chequeDeadline;
-    teamInfo.giftDeadline = giftDeadline;
-    teamInfo.startPrice = startPrice;
-    teamInfo.endPrice = endPrice;
+    teamInfo.form_date = formDeadline;
+    teamInfo.purchase_date = chequeDeadline;
+    teamInfo.send_date = giftDeadline;
+    teamInfo.start_price = startPrice;
+    teamInfo.end_price = endPrice;
 
     fetch(new URL('/post_new_team', 'http://localhost:8000').href, {
                 method: "POST",
