@@ -2,6 +2,9 @@ import flask
 from flask import Flask
 import json
 
+from db import database
+
+db = database.Database("mongodb://root:example@mongo:27017/", "secret_santa_db")
 app = Flask(__name__)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 
@@ -39,86 +42,17 @@ def host():
 
 @app.route('/get_list_people')
 def get_list_people():
-    # сюда можно написать запрос к бд
-    return [{
-                'name': 'ОляД',
-                'email': 'olyathebest@mail.ru',
-                'team': 'team1',
-                'isHost': True,
-                'teamNumber': 1,
-                'adminName': 'Админ 1'
-            },
-            {
-                'name': 'ОляВ',
-                'email': 'olyathebesttoo@mail.ru',
-                'team': 'team2',
-                'isHost': False,
-                'teamNumber': 2,
-                'adminName': 'Админ 2'
-            },
-            {
-                'name': 'Таня',
-                'email': 'tanyahatesmongodb@mail.ru',
-                'team': 'team3',
-                'isHost': False,
-                'teamNumber': 3,
-                'adminName': 'Админ 3'
-            }]
+    return db.users_list()
 
 @app.route('/get_list_team')
 def get_list_team():
-    #сюда можно написать запрос к бд
-    return [{
-                'team': 'team1',
-                'admin': 'Админ 1',
-                'numberPlayers': 1,
-                'numberForms': 1,
-                'numberAcceptedCheques': 1,
-                'numberNotAcceptedCheques': 0,
-                'numberSendedGifts': 0,
-                'numberGotGifts': 0,
-                'formDeadline': '01-01-24',
-                'chequeDeadline': '02-01-24',
-                'giftDeadline': '03-01-24',
-                'startPrice': 1,
-                'endPrice': 2
-            },
-            {
-                'team': 'team2',
-                'admin': 'Админ 2',
-                'numberPlayers': 1,
-                'numberForms': 1,
-                'numberAcceptedCheques': 1,
-                'numberNotAcceptedCheques': 0,
-                'numberSendedGifts': 0,
-                'numberGotGifts': 0,
-                'formDeadline': '01-01-24',
-                'chequeDeadline': '02-01-24',
-                'giftDeadline': '03-01-24',
-                'startPrice': 1000,
-                'endPrice': 2000
-            },
-            {
-                'team': 'team3',
-                'admin': 'Админ 3',
-                'numberPlayers': 1,
-                'numberForms': 1,
-                'numberAcceptedCheques': 1,
-                'numberNotAcceptedCheques': 0,
-                'numberSendedGifts': 0,
-                'numberGotGifts': 0,
-                'formDeadline': '01-01-24',
-                'chequeDeadline': '02-01-24',
-                'giftDeadline': '03-01-24',
-                'startPrice': 1000000,
-                'endPrice': 2000000
-            }]
+    return db.games_list()
 
 @app.route('/post_new_team', methods=['POST'])
 def post_new_team():
-    teamInfo = json.loads(flask.request.data)
-    print(teamInfo)
-    #сюда можно добавить запись в бд
+    team_info = json.loads(flask.request.data)
+    print(team_info)
+    db.register_game(team_info)
     return app.response_class(status=200)
 
 
