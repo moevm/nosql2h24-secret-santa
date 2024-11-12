@@ -12,11 +12,12 @@
             <img style="width: 100%; height: 100%" src="{{ url_for('static', filename='img/Frame 1.png') }}"/>
             <div class="frame3">
                 <form class="form_login">
-                    <input required placeholder="Введите адрес эл. почты"/>
+                    <input required placeholder="Введите адрес эл. почты" id="login"/>
                 </form>
-                <button class="log">Войти</button>
+                <button class="log" id="login_button">Войти</button>
                 <button class="imp">Импортировать данные</button>
             </div>
         </div>
+        <script src="{{ url_for('static', filename='js/login.js') }}"></script>
     </body>
 </html>

@@ -122,6 +122,11 @@ def post_new_team():
     return app.response_class(status=200)
 
 
+@app.route('/user/<username>')
+def get_user_page(username):
+    return flask.render_template('player_page.html')
+
+
 
 if __name__ == '__main__':
     app.run(host='', port=8000)
