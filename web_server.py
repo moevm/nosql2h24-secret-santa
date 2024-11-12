@@ -4,7 +4,7 @@ import json
 
 from db import database
 
-db = database.Database("mongodb://localhost:27017/", "secret_santa_test")
+db = database.Database("mongodb://localhost:27017/", "secret_santa_db")
 app = Flask(__name__)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 

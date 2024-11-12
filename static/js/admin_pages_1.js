@@ -56,7 +56,7 @@ window.addEventListener("load", async function(){
             listT.appendChild(div);
             div.addEventListener('click', ()=>{
                 let teamInfo = document.getElementById('team_info');
-                teamInfo.innerHTML = `Организатор команды: ${content[i].admin}<br/>Количество игроков: ${content[i].players_num}<br/>Количество заполненых анкет: ${content[i].form_num}<br/>Количество загруженных и подтвержденных чеков: ${content[i].accepted_cheques}<br/>Количество не подтвержденных чеков: ${content[i].not_accepted_cheques}<br/>Количество отправленных подарков: ${content[i].sent_gifts}<br/>Количество полученных подарков: ${content[i].got_gifts}<br/><br/>`;
+                teamInfo.innerHTML = `Организатор команды: ${content[i].admin_name}<br/>Количество игроков: ${content[i].players_num}<br/>Количество заполненых анкет: ${content[i].form_num}<br/>Количество загруженных и подтвержденных чеков: ${content[i].accepted_cheques}<br/>Количество не подтвержденных чеков: ${content[i].not_accepted_cheques}<br/>Количество отправленных подарков: ${content[i].sent_gifts}<br/>Количество полученных подарков: ${content[i].got_gifts}<br/><br/>`;
 
                 let deadlines = document.getElementById('deadlines_info');
                 deadlines.innerHTML = `Заполнение анкет: до ${content[i].form_date}<br/>Отправка чека оплаты: до ${content[i].purchase_date}<br/>Отправка подарка: до ${content[i].send_date}<br/><br/>`
