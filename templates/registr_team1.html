@@ -13,7 +13,7 @@
             <div style="width: 525px; justify-content:first baseline; align-items: center; display: flex; flex-direction: column;">
                 <img src="{{ url_for('static', filename='img/Frame 2.png') }}"/>
                 <button id="nnext" class="next" onclick="savePeople();window.location.href='/registration2'">Продолжить</button>
-                <button id="button_pluz" style="margin-top: 2%; cursor: pointer;; text-align: center; border: none; background-color: none;"><img  src="{{ url_for('static', filename='img/pluz.png') }}"/></button>
+                <button id="button_pluz" onclick="addNewPlayer();" style="margin-top: 2%; cursor: pointer;; text-align: center; border: none; background-color: none;"><img  src="{{ url_for('static', filename='img/pluz.png') }}"/></button>
             </div>
             <div class="frame1">
                 <div class="maincontent"><div class="content">Регистрация команды</div></div>

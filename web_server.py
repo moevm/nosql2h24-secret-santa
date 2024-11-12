@@ -7,6 +7,7 @@
 # httpd.serve_forever()
 import flask
 from flask import Flask
+import json
 
 app = Flask(__name__)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
@@ -37,6 +38,7 @@ def list_team():
 
 @app.route('/get_list_people')
 def get_list_people():
+    # сюда можно написать запрос к бд
     return [{
                 'name': 'ОляД',
                 'team': 'team1'
@@ -52,6 +54,7 @@ def get_list_people():
 
 @app.route('/get_list_team')
 def get_list_team():
+    #сюда можно написать запрос к бд
     return [{
                 'team': 'team1',
                 'admin': 'Админ 1'
@@ -65,6 +68,12 @@ def get_list_team():
                 'admin': 'Админ 3'
             }]
 
+@app.route('/post_new_team', methods=['POST'])
+def post_new_team():
+    teamInfo = json.loads(flask.request.data)
+    print(teamInfo)
+    #сюда можно добавить запись в бд
+    return app.response_class(status=200)
 
 if __name__ == '__main__':
     app.run(host='', port=8000)

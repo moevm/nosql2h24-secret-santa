@@ -1,4 +1,4 @@
-document.getElementById('button_pluz').addEventListener('click', function() {
+function addNewPlayer() {
     let new1 = document.createElement('input');
     let new2 = document.createElement('input');
     new1.type = "text";
@@ -26,7 +26,7 @@ document.getElementById('button_pluz').addEventListener('click', function() {
     let parentElement = document.getElementById('formParent');
     parentElement.appendChild(new1);
     parentElement.appendChild(new2);
-});
+}
 
 function savePeople() {
     let teamInfo = {};
@@ -48,6 +48,19 @@ function saveMetaInfo() {
     let startPrice = document.getElementById('start_price').value;
     let endPrice = document.getElementById('end_price').value;
 
+    teamInfo.formDeadline = formDeadline;
+    teamInfo.chequeDeadline = chequeDeadline;
+    teamInfo.giftDeadline = giftDeadline;
+    teamInfo.startPrice = startPrice;
+    teamInfo.endPrice = endPrice;
 
-
+    fetch(new URL('/post_new_team', 'http://localhost:8000').href, {
+                method: "POST",
+                headers: {
+                'Accept': 'application/json',
+                "Content-type": "application/json; charset=UTF-8"
+                },
+                body: JSON.stringify(teamInfo)
+    })
+    localStorage.clear();
 }
