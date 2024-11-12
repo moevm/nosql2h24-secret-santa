@@ -16,12 +16,16 @@ class Database:
     return get_games(self.db)
 
   def register_game(self, team_info):
-    host = team_info["admin"].update({"id": self.user_id})
+    host = team_info["admin"]
+    host.update({"id": self.user_id, "is_host": True})
     add_user(self.db, host)
     self.user_id += 1
 
     for player in team_info["players"]:
-      add_user(self.db, player.update({"id": self.user_id}))
+      player.update({"id": self.user_id, "status":"none",
+                                       "is_host": False, "got_gift": False,
+                                       "wrong_gift": False})
+      add_user(self.db, player)
       self.user_id+=1
 
     add_game(self.db,

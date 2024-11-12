@@ -2,7 +2,8 @@ def get_games(db):
   games_coll = db["games"]
   games = []
   for game in games_coll.find():
-    games.append(game.update(game_full_info(db, game["id"])))
+    game.update(game_full_info(db, game["id"]))
+    games.append(game)
   return games
 
 def get_users(db):
