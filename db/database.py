@@ -17,12 +17,12 @@ class Database:
 
   def register_game(self, team_info):
     host = team_info["admin"]
-    host.update({"id": self.user_id, "is_host": True})
+    host.update({"id": self.user_id, "game_id":self.game_id, "is_host": True})
     add_user(self.db, host)
     self.user_id += 1
 
     for player in team_info["players"]:
-      player.update({"id": self.user_id, "status":"none",
+      player.update({"id": self.user_id, "game_id":self.game_id, "status":"none",
                                        "is_host": False, "got_gift": False,
                                        "wrong_gift": False})
       add_user(self.db, player)
@@ -34,7 +34,7 @@ class Database:
               "send_date":team_info["send_date"],
               "start_price":team_info["start_price"],
               "end_price":team_info["end_price"],
-              "id": self.user_id
+              "id": self.game_id
         })
     self.game_id+=1
 

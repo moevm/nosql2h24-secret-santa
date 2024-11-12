@@ -3,12 +3,17 @@ def get_games(db):
   games = []
   for game in games_coll.find():
     game.update(game_full_info(db, game["id"]))
+    game.pop('_id')
     games.append(game)
   return games
 
 def get_users(db):
-  users_coll = db["games"]
-  return [user for user in users_coll.find()]
+  users_coll = db["users"]
+  users = []
+  for user in users_coll.find():
+    user.pop('_id')
+    users.append(user)
+  return user
 
 def find_one(db, col, object_id):
   documents = db[col]
@@ -34,9 +39,7 @@ def game_full_info(db, game_id):
       if not player["wrong_gift"] and enum.index(player["status"]):
         accepted_cheques += 1
       status_count[player["status"]]+=1
-
-  host_name = users_coll.find_one({"game_id": game_id, "is_host": True})["name"]
-
-  return {"admin_name": host_name, "players_num": players_num, "form_num": status_count["form"],
+  host = users_coll.find_one({"game_id": game_id, "is_host": True})
+  return {"admin_name": host["name"], "players_num": players_num, "form_num": status_count["form"],
           "accepted_cheques" :accepted_cheques, "not_accepted_cheques": not_accepted_cheques,
-          "sent_gifts": status_count["sent"], "got_gifts ": got_gifts }
+          "sent_gifts": status_count["sent"], "got_gifts": got_gifts }
