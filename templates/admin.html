@@ -2,20 +2,20 @@
 <html lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css" href="style/style_index.css">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style/style_index.css') }}">
         <link href="https://fonts.googleapis.com/css2?family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Панель администратора</title>
     </head>
     <body>
         <div class="pageAdmin">
-            <img style="width: 100%; height: 100%" src="/img/Frame 1.png"/>
+            <img style="width: 100%; height: 100%" src="{{ url_for('static', filename='img/Frame 1.png') }}"/>
             <div class="frame2">
-                <button class="button_registr" onclick="window.location.href='/admin pages/list_people.html'">Список людей</button>
-                <button class="button_import" onclick="window.location.href='/admin pages/list_team.html'">Список команд</button>
+                <button class="button_registr" onclick="window.location.href='/list_people'">Список людей</button>
+                <button class="button_import" onclick="window.location.href='/list_team'">Список команд</button>
                 <button class="button_import">Статистика</button>
                 <button class="button_import">Действия в системе</button>
-                <button class="return" onclick="window.location.href='index.html'">Вернуться назад</button>
+                <button class="return" onclick="window.location.href='/'">Вернуться назад</button>
             </div>
         </div>
     </body>

@@ -2,21 +2,21 @@
 <html lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css" href="style/style_index.css">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style/style_index.css') }}">
         <link href="https://fonts.googleapis.com/css2?family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Главная</title>
     </head>
     <body>
         <div class="pageMain">
-            <img style="width: 100%; height: 100%" src="/img/Frame 1.png"/>
+            <img style="width: 100%; height: 100%" src="{{ url_for('static', filename='img/Frame 1.png') }}"/>
             <div class="frame1">
-                <button class="button_registr" style="margin:1%" onclick="window.location.href='registr_team1.html'">Зарегистрировать команду</button>
+                <button class="button_registr" style="margin:1%" onclick="window.location.href='/registration'">Зарегистрировать команду</button>
                 <button class="button_import">Импортировать данные</button>
                 <div style="text-align: center"><span style="color: black; font-size: 25px;  font-weight: 300; word-wrap: break-word">Команда уже есть? </span><span class="click_text1">Зайти в профиль</span></div>
             </div>
             <div class="frame_bottom">
-                <button class="button_admin" onclick="window.location.href='admin.html'">Панель администратора</button>
+                <button class="button_admin" onclick="window.location.href='/admin'">Панель администратора</button>
             </div>
         </div>
     </body>

@@ -27,3 +27,27 @@ document.getElementById('button_pluz').addEventListener('click', function() {
     parentElement.appendChild(new1);
     parentElement.appendChild(new2);
 });
+
+function savePeople() {
+    let teamInfo = {};
+    let form = document.getElementById('formParent');
+    teamInfo.admin = {'name': form.children[0].value, 'email': form.children[1].value};
+    teamInfo.players = [];
+    for (let i = 2; i < form.children.length; i+=2) {
+            teamInfo.players.push({'name': form.children[i].value, 'email': form.children[i+1].value})
+    }
+    localStorage.setItem('teamInfo', JSON.stringify(teamInfo))
+}
+
+function saveMetaInfo() {
+    let teamInfo = JSON.parse(localStorage.getItem('teamInfo'));
+
+    let formDeadline = document.getElementById('form_deadline').value;
+    let chequeDeadline = document.getElementById('cheque_deadline').value;
+    let giftDeadline = document.getElementById('gift_deadline').value;
+    let startPrice = document.getElementById('start_price').value;
+    let endPrice = document.getElementById('end_price').value;
+
+
+
+}

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style/style_registr.css') }}">
+        <link href="https://fonts.googleapis.com/css2?family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Регистрация команды</title>
+        <script src="{{ url_for('static', filename='js/registr.js') }}"></script>
+    </head>
+    <body>
+        <div class="pageRegistr">
+            <div style="width: 525px; height: 481px; padding-top: 48px; padding-bottom: 48px; justify-content: center; align-items: center; display: inline-flex">
+                <img src="{{ url_for('static', filename='img/Frame 2.png') }}"/>
+            </div>
+            <div class="frame1">
+                <div class="maincontent"><div class="content">Регистрация команды</div></div>
+                <form class="form_registr_team" id="formInfo">
+                    <div>Дедлайн заполнения анкеты</div>  
+                    <input type="date" id="form_deadline" required style="width: 498px; height: 111px; background: white; border-radius: 10px; border: 5px black solid"/>
+                    <div>Дедлайн отправки чека</div>  
+                    <input type="date" id="cheque_deadline" required style="width: 498px; height: 111px; background: white; border-radius: 10px; border: 5px black solid"/>
+                    <div>Дедлайн отправки подарка</div> 
+                    <input type="date" id="gift_deadline" required style="width: 498px; height: 111px; background: white; border-radius: 10px; border: 5px black solid"/>
+                    <span class="text1">Нижний предел</span>
+                    <span class="text1">верхний предел</span>
+                    <span><span class="text1">От</span><input required type="number" id="start_price" value="100" style="width: 100px; height: 50px; background: white; border-radius: 10px; border: 5px black solid"/><span class="text1">рублей</span></span>
+                    <span><span class="text1">До</span><input required type="number" id="end_price" value="1000" style="width: 100px; height: 50px; background: white; border-radius: 10px; border: 5px black solid"/><span class="text1">рублей</span></span>
+                </form>
+                <button class="final">Зарегистрировать</button>
+            </div>
+        </div>
+    </body>
+</html>

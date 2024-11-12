@@ -2,17 +2,18 @@
 <html lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css" href="style/style_registr.css">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style/style_registr.css') }}">
         <link href="https://fonts.googleapis.com/css2?family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Регистрация команды</title>
+        <script src="{{ url_for('static', filename='js/registr.js') }}"></script>
     </head>
     <body>
         <div class="pageRegistr">
             <div style="width: 525px; justify-content:first baseline; align-items: center; display: flex; flex-direction: column;">
-                <img src="/img/Frame 2.png"/>
-                <button id="nnext" class="next" onclick="window.location.href='registr_team2.html'">Продолжить</button>
-                <button id="button_pluz" style="margin-top: 2%; cursor: pointer;; text-align: center; border: none; background-color: none;"><img  src="img/pluz.png"/></button>
+                <img src="{{ url_for('static', filename='img/Frame 2.png') }}"/>
+                <button id="nnext" class="next" onclick="savePeople();window.location.href='/registration2'">Продолжить</button>
+                <button id="button_pluz" style="margin-top: 2%; cursor: pointer;; text-align: center; border: none; background-color: none;"><img  src="{{ url_for('static', filename='img/pluz.png') }}"/></button>
             </div>
             <div class="frame1">
                 <div class="maincontent"><div class="content">Регистрация команды</div></div>
@@ -26,5 +27,4 @@
             </div>
         </div>
     </body>
-    <script src="js/registr.js"></script>
 </html>
