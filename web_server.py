@@ -29,6 +29,10 @@ def list_people():
 def list_team():
     return flask.render_template('list_team.html')
 
+@app.route('/host')
+def host():
+    return flask.render_template('host.html')
+
 @app.route('/get_list_people')
 def get_list_people():
     # сюда можно написать запрос к бд
@@ -112,6 +116,8 @@ def post_new_team():
     print(teamInfo)
     #сюда можно добавить запись в бд
     return app.response_class(status=200)
+
+
 
 if __name__ == '__main__':
     app.run(host='', port=8000)
