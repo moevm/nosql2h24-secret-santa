@@ -46,12 +46,12 @@ def get_list_people():
 
 @app.route('/get_list_team')
 def get_list_team():
-    return db.games_list()
+    answer = db.games_list()
+    return answer
 
 @app.route('/post_new_team', methods=['POST'])
 def post_new_team():
     team_info = json.loads(flask.request.data)
-    print(team_info)
     db.register_game(team_info)
     return app.response_class(status=200)
 
@@ -59,7 +59,6 @@ def post_new_team():
 @app.route('/user/<username>')
 def get_user_page(username):
     return flask.render_template('player_page.html')
-
 
 
 if __name__ == '__main__':

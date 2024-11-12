@@ -13,7 +13,7 @@ def get_users(db):
   for user in users_coll.find():
     user.pop('_id')
     users.append(user)
-  return user
+  return users
 
 def find_one(db, col, object_id):
   documents = db[col]
@@ -30,8 +30,8 @@ def game_full_info(db, game_id):
   status_count = {"none": 0, "form": 0, "paid": 0, "sent": 0}
   got_gifts = 0
   for player in users_coll.find({"game_id": game_id}):
-    players_num += 1
     if not player["is_host"]:
+      players_num += 1
       if player["wrong_gift"]:
         not_accepted_cheques += 1
       if player["got_gift"]:

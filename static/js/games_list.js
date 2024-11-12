@@ -2,13 +2,12 @@ const Button = document.getElementById("close");
 const favDialog = document.getElementById("favDialog");
 const dialog = document.querySelector("dialog");
 
-
 Button.addEventListener('click', () => {
     dialog.close();
 })
 
 window.addEventListener("load", async function(){
-    await fetch(new URL('/get_list_people', 'http://localhost:8000').href, { //адрес сервера можно вынести в константу
+    await fetch(new URL('/get_list_team', 'http://localhost:8000').href, { //адрес сервера можно вынести в константу
                 method: "GET",
                 headers: {
                 'Accept': 'application/json',
@@ -16,7 +15,7 @@ window.addEventListener("load", async function(){
     }})
     .then(res => res.json())
     .then(content => {
-        let list = this.document.getElementById('list_people');
+        let listT = document.getElementById('list_team');
         for (let i =0; i < content.length; i++){
             let div = document.createElement('div');
             div.style.display = "flex";
@@ -24,8 +23,8 @@ window.addEventListener("load", async function(){
             div.style.justifyContent = "space-between";
             let text1 = this.document.createElement('div');
             let text2 = this.document.createElement('div');
-            text1.textContent = content[i].name;
-            text2.textContent = content[i].team;
+            text1.textContent = `Команда_${content[i].id}`;
+            text2.textContent = content[i].admin_name;
 
             text1.style.color = "black";
             text1.style.fontSize = "40px";
@@ -53,18 +52,23 @@ window.addEventListener("load", async function(){
             div.style.border = "3px black solid";
             div.style.marginTop = "1%";
             div.style.cursor = "pointer";
-            div.id = i + "human";
-            list.appendChild(div);
+            div.id = i + "team";
+            listT.appendChild(div);
             div.addEventListener('click', ()=>{
-                let userInfo = document.getElementById('user_info');
-                userInfo.innerHTML = `Роль: ${content[i].is_host ? 'админ': 'игрок'}<br/>Имя: ${content[i].name}<br/><br/>`
-
                 let teamInfo = document.getElementById('team_info');
-                teamInfo.innerHTML = `Номер команды: ${content[i].game_id}<br/>Организатор команды: ${content[i].admin_name}<br/><br/>`
+                teamInfo.innerHTML = `Организатор команды: ${content[i].admin_name}<br/>Количество игроков: ${content[i].players_num}<br/>Количество заполненых анкет: ${content[i].form_num}<br/>Количество загруженных и подтвержденных чеков: ${content[i].accepted_cheques}<br/>Количество не подтвержденных чеков: ${content[i].not_accepted_cheques}<br/>Количество отправленных подарков: ${content[i].sent_gifts}<br/>Количество полученных подарков: ${content[i].got_gifts}<br/><br/>`;
+
+                let deadlines = document.getElementById('deadlines_info');
+                deadlines.innerHTML = `Заполнение анкет: до ${content[i].form_date}<br/>Отправка чека оплаты: до ${content[i].purchase_date}<br/>Отправка подарка: до ${content[i].send_date}<br/><br/>`
+
+                let prices = document.getElementById('prices_info');
+                prices.innerHTML = `Нижний предел: ${content[i].start_price} руб.<br/>Верхний предел: ${content[i].end_price} руб.`
 
                 favDialog.showModal();
             });
         }
     })
+
 });
+
 
