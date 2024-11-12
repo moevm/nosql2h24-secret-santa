@@ -3,7 +3,7 @@ from pymongo import MongoClient
 def create_users(db):
     users = []
     for i in range (1, 11):
-        users.append({"name": "test_user" + str(i), "email": "test_email" + str(i), "password": "testpass" + str(i), "games": []})
+        users.append({"name": "test_user" + str(i), "email": "email" + str(i), "password": "testpass" + str(i), "games": []})
     col = db["users"]
     col.insert_many(users)
 
