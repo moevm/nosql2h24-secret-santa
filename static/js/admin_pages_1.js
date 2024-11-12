@@ -55,6 +55,15 @@ window.addEventListener("load", async function(){
             div.id = i + "team";
             listT.appendChild(div);
             div.addEventListener('click', ()=>{
+                let teamInfo = document.getElementById('team_info');
+                teamInfo.innerHTML = `Организатор команды: ${content[i].admin}<br/>Количество игроков: ${content[i].numberPlayers}<br/>Количество заполненых анкет: ${content[i].numberForms}<br/>Количество загруженных и подтвержденных чеков: ${content[i].numberAcceptedCheques}<br/>Количество не подтвержденных чеков: ${content[i].numberNotAcceptedCheques}<br/>Количество отправленных подарков: ${content[i].numberSendedGifts}<br/>Количество полученных подарков: ${content[i].numberGotGifts}<br/><br/>`;
+
+                let deadlines = document.getElementById('deadlines_info');
+                deadlines.innerHTML = `Заполнение анкет: до ${content[i].formDeadline}<br/>Отправка чека оплаты: до ${content[i].chequeDeadline}<br/>Отправка подарка: до ${content[i].giftDeadline}<br/><br/>`
+
+                let prices = document.getElementById('prices_info');
+                prices.innerHTML = `Нижний предел: ${content[i].startPrice} руб.<br/>Верхний предел: ${content[i].endPrice} руб.`
+
                 favDialog.showModal();
             });
         }

@@ -56,6 +56,12 @@ window.addEventListener("load", async function(){
             div.id = i + "human";
             list.appendChild(div);
             div.addEventListener('click', ()=>{
+                let userInfo = document.getElementById('user_info');
+                userInfo.innerHTML = `Роль: ${content[i].isHost ? 'админ': 'игрок'}<br/>Имя: ${content[i].name}<br/>Эл. почта: ${content[i].email}<br/><br/>`
+
+                let teamInfo = document.getElementById('team_info');
+                teamInfo.innerHTML = `Номер команды: ${content[i].teamNumber}<br/>Организатор команды: ${content[i].adminName}<br/><br/>`
+
                 favDialog.showModal();
             });
         }

@@ -34,15 +34,27 @@ def get_list_people():
     # сюда можно написать запрос к бд
     return [{
                 'name': 'ОляД',
-                'team': 'team1'
+                'email': 'olyathebest@mail.ru',
+                'team': 'team1',
+                'isHost': True,
+                'teamNumber': 1,
+                'adminName': 'Админ 1'
             },
             {
                 'name': 'ОляВ',
-                'team': 'team2'
+                'email': 'olyathebesttoo@mail.ru',
+                'team': 'team2',
+                'isHost': False,
+                'teamNumber': 2,
+                'adminName': 'Админ 2'
             },
             {
                 'name': 'Таня',
-                'team': 'team3'
+                'email': 'tanyahatesmongodb@mail.ru',
+                'team': 'team3',
+                'isHost': False,
+                'teamNumber': 3,
+                'adminName': 'Админ 3'
             }]
 
 @app.route('/get_list_team')
@@ -50,15 +62,48 @@ def get_list_team():
     #сюда можно написать запрос к бд
     return [{
                 'team': 'team1',
-                'admin': 'Админ 1'
+                'admin': 'Админ 1',
+                'numberPlayers': 1,
+                'numberForms': 1,
+                'numberAcceptedCheques': 1,
+                'numberNotAcceptedCheques': 0,
+                'numberSendedGifts': 0,
+                'numberGotGifts': 0,
+                'formDeadline': '01-01-24',
+                'chequeDeadline': '02-01-24',
+                'giftDeadline': '03-01-24',
+                'startPrice': 1,
+                'endPrice': 2
             },
             {
                 'team': 'team2',
-                'admin': 'Админ 2'
+                'admin': 'Админ 2',
+                'numberPlayers': 1,
+                'numberForms': 1,
+                'numberAcceptedCheques': 1,
+                'numberNotAcceptedCheques': 0,
+                'numberSendedGifts': 0,
+                'numberGotGifts': 0,
+                'formDeadline': '01-01-24',
+                'chequeDeadline': '02-01-24',
+                'giftDeadline': '03-01-24',
+                'startPrice': 1000,
+                'endPrice': 2000
             },
             {
                 'team': 'team3',
-                'admin': 'Админ 3'
+                'admin': 'Админ 3',
+                'numberPlayers': 1,
+                'numberForms': 1,
+                'numberAcceptedCheques': 1,
+                'numberNotAcceptedCheques': 0,
+                'numberSendedGifts': 0,
+                'numberGotGifts': 0,
+                'formDeadline': '01-01-24',
+                'chequeDeadline': '02-01-24',
+                'giftDeadline': '03-01-24',
+                'startPrice': 1000000,
+                'endPrice': 2000000
             }]
 
 @app.route('/post_new_team', methods=['POST'])
