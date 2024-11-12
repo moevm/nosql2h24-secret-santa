@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style/style_login.css') }}">
+        <link href="https://fonts.googleapis.com/css2?family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Страница организатора</title>
+    </head>
+    <body>
+        <div class="pageLogin">
+            <img style="width: 100%; height: 100%" src="{{ url_for('static', filename='img/Frame 1.png') }}"/>
+            <div class="frame3">
+                <form class="form_login">
+                    <input required placeholder="Введите адрес эл. почты"/>
+                </form>
+                <button class="log">Войти</button>
+                <button class="imp">Импортировать данные</button>
+            </div>
+        </div>
+    </body>
+</html>

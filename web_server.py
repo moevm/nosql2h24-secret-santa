@@ -13,6 +13,10 @@ def index():
 def registration():
     return flask.render_template('registr_team1.html')
 
+@app.route('/login')
+def login():
+    return flask.render_template('login_page.html')
+
 @app.route('/registration2')
 def registration2():
     return flask.render_template('registr_team2.html')

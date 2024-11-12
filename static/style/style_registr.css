@@ -63,8 +63,8 @@
     margin-top: 0.7%;
 }
 
-.form_registr_team div{
-    width: 308px; height: 111px; background: white; border-radius: 10px; border: 5px black solid;
+.form_registr_team input{
+    width: 50%; height: 111px; background: white; border-radius: 10px; border: 5px black solid;
     text-align: center; color: black; font-size: 30px; font-weight: 300; word-wrap: break-word;
 }
 
