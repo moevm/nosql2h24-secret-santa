@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style/style_player.css') }}">
+        <link href="https://fonts.googleapis.com/css2?family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Анкета пользователя</title>
+    </head>
+    <body>
+        <div class="pagePlayer" style="justify-content: space-around;">
+            <div style="width: 525px; justify-content:first baseline; align-items: center; display: flex; flex-direction: column;">
+                <img  src="../static/img/Frame 2.png/">
+                <div class="groupButton">
+                    <button class="buttonP">Экспортировать данные</button>
+                    <button class="buttonP" disabled>Анкета</button>
+                    <button class="buttonP" onclick="window.location.href='/status'">Текущее состояние</button>
+                </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; justify-content: flex-end; margin-top: 2vh;">
+                <button class="keepB">Сохранить</button>
+                <form class="profile">
+                    <div style=" color: black; font-size: 30px; font-family: Shantell Sans; font-weight: 500; word-wrap: break-word">Адрес электронной почты</div> 
+                    <input class="inputprofile" type="email">
+                    <div style="  color: black; font-size: 30px; font-family: Shantell Sans; font-weight: 500; word-wrap: break-word">Имя</div>
+                    <input class="inputprofile" type="text">
+                    <div style="  color: black; font-size: 30px; font-family: Shantell Sans; font-weight: 500; word-wrap: break-word">Адрес отправки</div>
+                    <input required class="inputprofile" placeholder="Введите адрес доставки подарка" type="text">
+                    <div style=" color: black; font-size: 30px; font-family: Shantell Sans; font-weight: 500; word-wrap: break-word">Номер телефона</div>
+                    <input required class="inputprofile" placeholder="Введите номер телефона" type="text">
+                    <div style=" color: black; font-size: 30px; font-family: Shantell Sans; font-weight: 500; word-wrap: break-word">Почтовый индекс</div>
+                    <input required class="inputprofile" placeholder="Введите почтовый индекс" type="text">
+                    <div style="width: 848px; height: 39px; color: black; font-size: 30px; font-family: Shantell Sans; font-weight: 500; word-wrap: break-word">Ваши пожелания для подарка и что дарить не стоит</div>
+                    <input required class="inputprofile" placeholder="Введите ваши пожелания для Тайного Санты" type="text">
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

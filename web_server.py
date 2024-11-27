@@ -8,6 +8,9 @@ db = database.Database("mongodb://localhost:27017/", "secret_santa_db")
 app = Flask(__name__)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 
+app = Flask(__name__)
+app.config['TEMPLATES_AUTO_RELOAD'] = True
+
 @app.route('/')
 def index():
     return flask.render_template('index.html')
@@ -27,6 +30,10 @@ def registration2():
 @app.route('/admin')
 def admin():
     return flask.render_template('admin.html')
+
+@app.route('/profile')
+def profile():
+    return flask.render_template('profile.html')
 
 @app.route('/list_people')
 def list_people():
