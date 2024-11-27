@@ -21,6 +21,12 @@
     cursor: pointer; margin-top: 2vh;
 }
 
+.buttonPD{
+    width: 310px; height: 111px; background: rgba(105.97, 207.54, 225.46, 0.22); border-radius: 10px; border: 3px black solid;
+    text-align: center; color: black; font-size: 30px; font-weight: 300; word-wrap: break-word;
+    cursor:not-allowed; margin-top: 2vh;
+}
+
 .buttonP:hover{
     background: rgba(105.97, 207.54, 225.46, 0.22);
 }
@@ -40,9 +46,51 @@
 
 .keepB{
     background: #6AD0E1; border-radius: 10px; border: 3px black solid; width: 310px; height: 61px; 
-    text-align: center; color: black; font-size: 30px; font-weight: 300; word-wrap: break-word; cursor: pointer; 
+    text-align: center; color: black; font-size: 30px; font-weight: 300; word-wrap: break-word; cursor: pointer; margin-left: 57%;
 }
 
 .keepB:hover{
     background: rgba(105.97, 207.54, 225.46, 0.22);
+}
+
+input::placeholder {
+	color: rgba(0, 0, 0, 0.45); font-size: 30px; font-weight: 500; word-wrap: break-word; 
+}
+input::-webkit-input-placeholder {
+	color: rgba(0, 0, 0, 0.45); font-size: 30px; font-weight: 500; word-wrap: break-word; 
+}
+input::-moz-placeholder {
+	color: rgba(0, 0, 0, 0.45); font-size: 30px; font-weight: 500; word-wrap: break-word; 
+}
+input:-moz-placeholder {
+	color: rgba(0, 0, 0, 0.45); font-size: 30px; font-weight: 500; word-wrap: break-word; 
+}
+input:-ms-input-placeholder {
+	color: rgba(0, 0, 0, 0.45); font-size: 30px; font-weight: 500; word-wrap: break-word; 
+}
+
+.confirm{
+    width: 310px; height: 85px; background: #033EFF; border-radius: 10px; border: 3px black solid;
+    cursor: pointer; margin-top: 2vh;
+    text-align: center; color: black; font-size: 30px;font-weight: 300; word-wrap: break-word;
+}
+
+.wishes{
+    width: 700px; height: 59px; background: #6AD0E1; border-radius: 10px; border: 3px black solid;
+    cursor: pointer;
+    text-align: center; color: black; font-size: 30px; font-weight: 400; line-height: 39px; word-wrap: break-word;
+
+}
+
+.wishes:hover{
+    background: rgba(105.97, 207.54, 225.46, 0.22);
+}
+
+.dialog1{
+    width: 40%;
+}
+
+.block1{
+    width: 465px; height: 165px; background: white; border: 4px black solid;
+    text-align: center; color: black; font-size: 30px; font-weight: 700; line-height: 39px; word-wrap: break-word
 }

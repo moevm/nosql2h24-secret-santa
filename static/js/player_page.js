@@ -13,3 +13,15 @@ window.addEventListener("load", async function(){
     })
 
 });
+
+let wishes = document.getElementById("wishess");
+let wDialog = document.getElementById("WDialog");
+const Button = document.getElementById("close");
+
+Button.addEventListener('click', () => {
+    wDialog.close();
+})
+
+wishes.addEventListener('click', ()=>{
+    wDialog.showModal();
+})
