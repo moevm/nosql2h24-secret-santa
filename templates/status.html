@@ -24,7 +24,30 @@
             </dialog>
             <dialog class="dialog" id="WDialog2">
                 <button id="close1" style="top: 1vh; position:absolute;">Cancel</button>
-                <div style="margin-top: 2vh; color: black; font-size: 30px;font-weight: 500; word-wrap: break-word">Мн</div>
+                <div style="margin-top: 2vh; color: black; font-size: 30px;font-weight: 500; word-wrap: break-word; display: flex; flex-direction: column;">
+                    <form>
+                        <div style="color: black; font-size: 30px; font-weight: 400; line-height: 39px; word-wrap: break-word">Выберите тип подарка:</div>
+                        <div>
+                            <input type="radio" id="билет" value="билет" name="drone" style="color: black; font-size: 30px; font-weight: 400; line-height: 39px; word-wrap: break-word">
+                            <label for="билет">билет</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="сертификат" name="drone" value="сертификат" style="color: black; font-size: 30px; font-weight: 400; line-height: 39px; word-wrap: break-word">
+                            <label for="сертификат">сертификат</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="подарок по почте" name="drone" value="подарок по почте" style="color: black; font-size: 30px; font-weight: 400; line-height: 39px; word-wrap: break-word">
+                            <label for="подарок по почте">подарок по почте</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="подарок другими сервисами" name="drone" value="подарок другими сервисами" style="color: black; font-size: 30px; font-weight: 400; line-height: 39px; word-wrap: break-word">
+                            <label for="подарок другими сервисами">подарок другими сервисами</label>
+                        </div>
+                        
+                        <input class="trec" type="text" placeholder="Введите трек-код посылки">
+                    </form>
+                    <button class="send">Отправить</button>
+                </div>
             </dialog>
             <dialog class="dialog" id="WDialog3">
                 <button id="close2" style="top: 1vh; position:absolute;">Cancel</button>

@@ -35,6 +35,10 @@ def admin():
 def profile():
     return flask.render_template('profile.html')
 
+@app.route('/status')
+def status():
+    return flask.render_template('status.html')
+
 @app.route('/list_people')
 def list_people():
     return flask.render_template('list_people.html')
