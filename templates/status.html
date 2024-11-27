@@ -9,10 +9,6 @@
     </head>
     <body>
         <div class="pagePlayer">
-            <dialog class="dialog1" id="WDialog">
-                <button id="close" style="top: 1vh; position:absolute;">Cancel</button>
-                <div style="margin-top: 2vh; color: black; font-size: 30px;font-weight: 500; word-wrap: break-word">Мне хотелось бы получить на Новый год много интересных и вкусных сладостей:)</div>
-            </dialog>
             <div style="width: 525px; justify-content:space-between; align-items: center; display: flex; flex-direction: column;">
                 <img  src="../static/img/Frame 2.png/">
                 <div class="groupButton">
@@ -22,12 +18,38 @@
                     <button class="confirm">Подтвердить получение подарка</button>
                 </div>
             </div>
+            <dialog class="dialog1" id="WDialog">
+                <button id="close" style="top: 1vh; position:absolute;">Cancel</button>
+                <div style="margin-top: 2vh; color: black; font-size: 30px;font-weight: 500; word-wrap: break-word">Мне хотелось бы получить на Новый год много интересных и вкусных сладостей:)</div>
+            </dialog>
+            <dialog class="dialog" id="WDialog2">
+                <button id="close1" style="top: 1vh; position:absolute;">Cancel</button>
+                <div style="margin-top: 2vh; color: black; font-size: 30px;font-weight: 500; word-wrap: break-word">Мн</div>
+            </dialog>
+            <dialog class="dialog" id="WDialog3">
+                <button id="close2" style="top: 1vh; position:absolute;">Cancel</button>
+                <div style="text-align: center; color: #033EFF; font-size: 30px; font-weight: 700; line-height: 39px; word-wrap: break-word">Номер телефона получателя<br/>+7(9**)-***-**-**</div>
+                <div><span style="text-align: center; color: black; font-size: 30px; font-weight: 700; line-height: 39px; word-wrap: break-word">Алгоритм действий:<br/></span><span style="color: black; font-size: 30px; font-family: Shantell Sans; font-weight: 700; line-height: 39px; word-wrap: break-word">Нажмите на странице Текущее состояние “Подтверждение вручения подарка”.<br/>Выберите тип подарка.<br/>Если тип подарка - подарок по почте, введите трек-код.<br/>Нажмите “Отправить”.</span></div>
+            </dialog>
             <div style="display: flex; flex-direction: column;  margin-top: 2vh; padding: 4vh 15vw;">
                 <button class="wishes" id="wishess">Пожелание получателя</button>
-                <div style="display: flex; flex-direction: row; margin-top: 2vh;">
+                <div style="display: flex; flex-direction: row; margin-top: 2vh; gap: 0.5vw">
                     <div class="block1">Заполните анкету до 01.11.2024 23:59</div>
                     <div style="width: 228px; height: 165px; background: #0AFD02; border: 4px black solid"></div>
-                  </div>
+                </div>
+                <div style="display: flex; flex-direction: row; margin-top: 2vh; gap: 0.5vw">
+                    <div class="block1">Прикрепите чек оплаты подарка для подтверждения до 26.11.2024 23:59</div>
+                    <div class="block2">Загрузить</div>
+                </div>
+                <div style="display: flex; flex-direction: row; margin-top: 2vh; gap: 0.5vw">
+                    <div class="block1">Отправка подарка до 10.12. 23:59</div>
+                    <div class="block2" id="loaad">Подтвердить вручение подарка</div>
+                </div>
+                <div style="display: flex; flex-direction: row; margin-top: 2vh; gap: 0.5vw">
+                    <div class="block3">Ожидайте ваш подарок Счастливого Нового года!</div>
+                    <div class="block1">Ваш код отслеживания: подарок еще неотправлен</div>
+                </div>
+                <div class="textD" id="text">Доставка подарка по номеру телефона получателя</div>
             </div>
         </div>
         <script src="{{ url_for('static', filename='js/player_page.js') }}"></script>

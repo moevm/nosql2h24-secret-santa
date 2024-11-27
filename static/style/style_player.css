@@ -92,5 +92,21 @@ input:-ms-input-placeholder {
 
 .block1{
     width: 465px; height: 165px; background: white; border: 4px black solid;
-    text-align: center; color: black; font-size: 30px; font-weight: 700; line-height: 39px; word-wrap: break-word
+    text-align: center; color: black; font-size: 30px; font-weight: 700; line-height: 39px; word-wrap: break-word;
+}
+
+.block2{
+    width: 228px; height: 165px; background: white; border: 4px black solid;
+    cursor: pointer;
+    text-align: center; color: black; font-size: 30px; font-weight: 700; line-height: 39px; word-wrap: break-word;text-decoration: underline;
+}
+
+.block3{
+    width: 228px; height: 165px; background: white; border: 4px black solid;
+    text-align: center; color: black; font-size: 26px; font-weight: 700; line-height: 39px; word-wrap: break-word;
+}
+
+.textD{
+    cursor: pointer;text-align: center; color: black; font-size: 30px; 
+    font-weight: 700; text-decoration: underline; line-height: 39px; word-wrap: break-word;
 }
