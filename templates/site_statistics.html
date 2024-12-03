@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style/style_statistics.css') }}">
+        <link href="https://fonts.googleapis.com/css2?family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Статистика сайта</title>
+    </head>
+    <body>
+        <div class="pageList1">
+            <div style="display: flex; flex-direction: row;">
+                <div>
+                    <div style="color: black; font-size: 40px; font-weight: 700; word-wrap: break-word">Тип графика:</div>
+                    <input type="radio" id="График по событиям" value="График по событиям" name="drone" style="color: black; font-size: 40px; font-weight: 400; word-wrap: break-word">График по событиям
+                    <input type="radio" id="График по командам" name="drone" value="сертификат" style="color: black; font-size: 40px; font-weight: 400; word-wrap: break-word">График по командам
+                    <button type="button" onclick="displayRadioValue()">Выбрать</button>
+                </div>
+                <canvas id="myChart" style="width: 40vw; height: 60vh; margin-left: 10%;"></canvas>
+            </div>
+            <div id="list_change"></div>
+            <div><button class="return" onclick="window.location.href='/admin'">Вернуться назад</button></div>
+        </div>
+    </body>
+    <script src="{{ url_for('static', filename='js/statistics.js') }}"></script>
+</html>
