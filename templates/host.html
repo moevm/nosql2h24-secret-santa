@@ -17,10 +17,47 @@
                     <button class="buttonPD" disabled>Данные об игроках</button>
                 </div>
             </div>
-            <div class="infotext">
-                
+            <dialog class="dialog1" id="WDialog">
+                <div style="display: flex; flex-direction: row; justify-content: space-around;">
+                    <button class="GreenB" id="close">Подтверждение</button>
+                    <button class="RedB" id="close1">Отклонение</button>
+                </div>
+            </dialog>
+            <div style="display: flex; flex-direction: column; margin-top: 5%; margin-left: 5%; padding: 2% 2%; width: 100%; ">
+                <div style="width: 100%; text-align: center; color: black; font-size: 30px;font-weight: 300; word-wrap: break-word">Возможность редактирования столбца “Кому дарит”</div>
+                <table>
+                    <tr>
+                        <th>Имя<br/>игрока</th>
+                        <th>Кому дарит</th>
+                        <th>Анкета</th>
+                        <th>Чек покупки</th>
+                        <th>Отправка подарка</th>
+                    </tr>
+                    <tr>
+                        <td>Ваня</td>
+                        <td><input type="text"></td>
+                        <td id="chechprofile"></td>
+                        <td id="chechbuy"></td>
+                        <td id="chechsend"></td>
+                    </tr>
+                    <tr>
+                        <td>Света</td>
+                        <td><input type="text"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Костя</td>
+                        <td><input type="text"></td>
+                        <td></td>
+                        <td id="chechbuy1" style="cursor: pointer; text-decoration: underline;">Требуется подтверждение</td>
+                        <td></td>
+                    </tr>
+                </table>
+                <button class="keepB">Сохранить</button>
             </div>
         </div>
-        <script src="{{ url_for('static', filename='js/org_page.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/org_table.js') }}"></script>
     </body>
 </html>
