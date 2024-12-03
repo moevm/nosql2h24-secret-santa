@@ -39,6 +39,10 @@ def profile():
 def status():
     return flask.render_template('status.html')
 
+@app.route('/statistics_org')
+def statistics_org():
+    return flask.render_template('page_org_statictics.html')
+
 @app.route('/list_people')
 def list_people():
     return flask.render_template('list_people.html')
@@ -46,6 +50,14 @@ def list_people():
 @app.route('/list_team')
 def list_team():
     return flask.render_template('list_team.html')
+
+@app.route('/list_action')
+def list_action():
+    return flask.render_template('list_action.html')
+
+@app.route('/site_statistics')
+def site_statistics():
+    return flask.render_template('site_statistics.html')
 
 @app.route('/host')
 def host():
