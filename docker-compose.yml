@@ -1,0 +1,20 @@
+version: '3.1'
+
+services:
+  db:
+    container_name: mongodb
+    image: "mongo:7.0.15"
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+
+  server:
+    container_name: santa_server
+    build: .
+    depends_on:
+      - db
+    ports:
+      - "127.0.0.1:8000:8000"
+    environment:
+      - PYTHONUNBUFFERED=True
