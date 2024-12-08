@@ -4,10 +4,7 @@ import json
 
 from db import database
 
-db = database.Database("mongodb://localhost:27017/", "secret_santa_db")
-app = Flask(__name__)
-app.config['TEMPLATES_AUTO_RELOAD'] = True
-
+db = database.Database("mongodb://root:example@db:27017/", "secret_santa_db")
 app = Flask(__name__)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 
@@ -85,4 +82,4 @@ def get_user_page(username):
 
 
 if __name__ == '__main__':
-    app.run(host='', port=8000)
+    app.run(host='0.0.0.0', port=8000)
