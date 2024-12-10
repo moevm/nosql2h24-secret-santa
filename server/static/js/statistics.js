@@ -1,51 +1,4 @@
 var ctx = document.getElementById('myChart').getContext('2d');
-var myChart = new Chart(ctx, {
-    type: 'pie',
-    data: {
-        labels: ['Анкеты', 'Отправки', 'Покупки', 'Подтверждения'],
-        datasets: [{
-            data: [90, 50, 70, 30],
-            backgroundColor: ['#e91e63', '#00e676', '#ff5722', '#1e88e5'],
-            borderWidth: 0.5 ,
-            borderColor: '#ddd'
-        }]
-    },
-    options: {
-        responsive: false,
-        title: {
-            display: true,
-            position: 'top',
-            fontSize: 16,
-            fontColor: '#111',
-            padding: 20
-        },
-        legend: {
-            display: true,
-            position: 'bottom',
-            labels: {
-                boxWidth: 20,
-                fontColor: '#111',
-                padding: 15
-            }
-        },
-        tooltips: {
-            enabled: false
-        },
-        plugins: {
-            datalabels: {
-                color: '#111',
-                textAlign: 'center',
-                font: {
-                    lineHeight: 1.6
-                },
-                formatter: function(value, ctx) {
-                    return ctx.chart.data.labels[ctx.dataIndex] + '\n' + value + '%';
-                }
-            }
-        }
-    }
-});
-
 let list = document.getElementById('list_change');
 
 function displayRadioValue() {
@@ -148,6 +101,251 @@ function displayRadioValue() {
             div.appendChild(div14);
             div.appendChild(div15);
             list.appendChild(div);
+
+            div11.addEventListener('click', ()=>{
+                var myChart = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: ['Анкеты', 'Отправки', 'Покупки', 'Подтверждения'],
+                        datasets: [{
+                            data: [90, 50, 70, 30],
+                            backgroundColor: ['#e91e63', '#00e676', '#ff5722', '#1e88e5'],
+                            borderWidth: 0.5 ,
+                            borderColor: '#ddd'
+                        }]
+                    },
+                    options: {
+                        responsive: false,
+                        title: {
+                            display: true,
+                            position: 'top',
+                            fontSize: 16,
+                            fontColor: '#111',
+                            padding: 20
+                        },
+                        legend: {
+                            display: true,
+                            position: 'bottom',
+                            labels: {
+                                boxWidth: 20,
+                                fontColor: '#111',
+                                padding: 15
+                            }
+                        },
+                        tooltips: {
+                            enabled: false
+                        },
+                        plugins: {
+                            datalabels: {
+                                color: '#111',
+                                textAlign: 'center',
+                                font: {
+                                    lineHeight: 1.6
+                                },
+                                formatter: function(value, ctx) {
+                                    return ctx.chart.data.labels[ctx.dataIndex] + '\n' + value + '%';
+                                }
+                            }
+                        }
+                    }
+                });
+            })
+
+            div12.addEventListener('click', ()=>{
+                var myChart = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: ['Заполненные', 'Нет'],
+                        datasets: [{
+                            data: [90, 10],
+                            backgroundColor: ['#e91e63', '#00e676'],
+                            borderWidth: 0.5 ,
+                            borderColor: '#ddd'
+                        }]
+                    },
+                    options: {
+                        responsive: false,
+                        title: {
+                            display: true,
+                            position: 'top',
+                            fontSize: 16,
+                            fontColor: '#111',
+                            padding: 20
+                        },
+                        legend: {
+                            display: true,
+                            position: 'bottom',
+                            labels: {
+                                boxWidth: 20,
+                                fontColor: '#111',
+                                padding: 15
+                            }
+                        },
+                        tooltips: {
+                            enabled: false
+                        },
+                        plugins: {
+                            datalabels: {
+                                color: '#111',
+                                textAlign: 'center',
+                                font: {
+                                    lineHeight: 1.6
+                                },
+                                formatter: function(value, ctx) {
+                                    return ctx.chart.data.labels[ctx.dataIndex] + '\n' + value + '%';
+                                }
+                            }
+                        }
+                    }
+                });
+            })
+
+            div13.addEventListener('click', ()=>{
+                var myChart = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: ['Отправленные', 'Нет'],
+                        datasets: [{
+                            data: [50, 50],
+                            backgroundColor: ['#e91e63', '#00e676'],
+                            borderWidth: 0.5 ,
+                            borderColor: '#ddd'
+                        }]
+                    },
+                    options: {
+                        responsive: false,
+                        title: {
+                            display: true,
+                            position: 'top',
+                            fontSize: 16,
+                            fontColor: '#111',
+                            padding: 20
+                        },
+                        legend: {
+                            display: true,
+                            position: 'bottom',
+                            labels: {
+                                boxWidth: 20,
+                                fontColor: '#111',
+                                padding: 15
+                            }
+                        },
+                        tooltips: {
+                            enabled: false
+                        },
+                        plugins: {
+                            datalabels: {
+                                color: '#111',
+                                textAlign: 'center',
+                                font: {
+                                    lineHeight: 1.6
+                                },
+                                formatter: function(value, ctx) {
+                                    return ctx.chart.data.labels[ctx.dataIndex] + '\n' + value + '%';
+                                }
+                            }
+                        }
+                    }
+                });
+            })
+
+            div14.addEventListener('click', ()=>{
+                var myChart = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: ['Купленные', 'Нет'],
+                        datasets: [{
+                            data: [70, 30],
+                            backgroundColor: ['#e91e63', '#00e676'],
+                            borderWidth: 0.5 ,
+                            borderColor: '#ddd'
+                        }]
+                    },
+                    options: {
+                        responsive: false,
+                        title: {
+                            display: true,
+                            position: 'top',
+                            fontSize: 16,
+                            fontColor: '#111',
+                            padding: 20
+                        },
+                        legend: {
+                            display: true,
+                            position: 'bottom',
+                            labels: {
+                                boxWidth: 20,
+                                fontColor: '#111',
+                                padding: 15
+                            }
+                        },
+                        tooltips: {
+                            enabled: false
+                        },
+                        plugins: {
+                            datalabels: {
+                                color: '#111',
+                                textAlign: 'center',
+                                font: {
+                                    lineHeight: 1.6
+                                },
+                                formatter: function(value, ctx) {
+                                    return ctx.chart.data.labels[ctx.dataIndex] + '\n' + value + '%';
+                                }
+                            }
+                        }
+                    }
+                });
+            })
+
+            div15.addEventListener('click', ()=>{
+                var myChart = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: ['Подтвержденные', 'Нет'],
+                        datasets: [{
+                            data: [30, 70],
+                            backgroundColor: ['#e91e63', '#00e676'],
+                            borderWidth: 0.5 ,
+                            borderColor: '#ddd'
+                        }]
+                    },
+                    options: {
+                        responsive: false,
+                        title: {
+                            display: true,
+                            position: 'top',
+                            fontSize: 16,
+                            fontColor: '#111',
+                            padding: 20
+                        },
+                        legend: {
+                            display: true,
+                            position: 'bottom',
+                            labels: {
+                                boxWidth: 20,
+                                fontColor: '#111',
+                                padding: 15
+                            }
+                        },
+                        tooltips: {
+                            enabled: false
+                        },
+                        plugins: {
+                            datalabels: {
+                                color: '#111',
+                                textAlign: 'center',
+                                font: {
+                                    lineHeight: 1.6
+                                },
+                                formatter: function(value, ctx) {
+                                    return ctx.chart.data.labels[ctx.dataIndex] + '\n' + value + '%';
+                                }
+                            }
+                        }
+                    }
+                });
+            })
         }
         if (ele[i].checked && ele[i].id =='График по командам'){
             list.innerHTML = '';
@@ -212,6 +410,153 @@ function displayRadioValue() {
             div.appendChild(div12);
             div.appendChild(div13);
             list.appendChild(div);
+
+            div11.addEventListener('click', ()=>{
+                var myChart = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: ['Проблемные', 'Нет'],
+                        datasets: [{
+                            data: [12, 8],
+                            backgroundColor: ['#e91e63', '#00e676'],
+                            borderWidth: 0.5 ,
+                            borderColor: '#ddd'
+                        }]
+                    },
+                    options: {
+                        responsive: false,
+                        title: {
+                            display: true,
+                            position: 'top',
+                            fontSize: 16,
+                            fontColor: '#111',
+                            padding: 20
+                        },
+                        legend: {
+                            display: true,
+                            position: 'bottom',
+                            labels: {
+                                boxWidth: 20,
+                                fontColor: '#111',
+                                padding: 15
+                            }
+                        },
+                        tooltips: {
+                            enabled: false
+                        },
+                        plugins: {
+                            datalabels: {
+                                color: '#111',
+                                textAlign: 'center',
+                                font: {
+                                    lineHeight: 1.6
+                                },
+                                formatter: function(value, ctx) {
+                                    return ctx.chart.data.labels[ctx.dataIndex] + '\n' + value + '%';
+                                }
+                            }
+                        }
+                    }
+                });
+            })
+
+            div12.addEventListener('click', ()=>{
+                var myChart = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: ['С заполнением анкет', 'С покупкой', 'С отправкой', 'С подтверждением подарков'],
+                        datasets: [{
+                            data: [1, 1, 2, 4],
+                            backgroundColor: ['#e91e63', '#00e676', '#ff5722', '#1e88e5'],
+                            borderWidth: 0.5 ,
+                            borderColor: '#ddd'
+                        }]
+                    },
+                    options: {
+                        responsive: false,
+                        title: {
+                            display: true,
+                            position: 'top',
+                            fontSize: 16,
+                            fontColor: '#111',
+                            padding: 20
+                        },
+                        legend: {
+                            display: true,
+                            position: 'bottom',
+                            labels: {
+                                boxWidth: 20,
+                                fontColor: '#111',
+                                padding: 15
+                            }
+                        },
+                        tooltips: {
+                            enabled: false
+                        },
+                        plugins: {
+                            datalabels: {
+                                color: '#111',
+                                textAlign: 'center',
+                                font: {
+                                    lineHeight: 1.6
+                                },
+                                formatter: function(value, ctx) {
+                                    return ctx.chart.data.labels[ctx.dataIndex] + '\n' + value + '%';
+                                }
+                            }
+                        }
+                    }
+                });
+            })
+
+            div13.addEventListener('click', ()=>{
+                var myChart = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: ['Заполнили анкету', 'Купили подарок', 'Отправили подарок', 'Подтвердили получение'],
+                        datasets: [{
+                            data: [90, 70, 50, 30],
+                            backgroundColor: ['#e91e63', '#00e676', '#ff5722', '#1e88e5'],
+                            borderWidth: 0.5 ,
+                            borderColor: '#ddd'
+                        }]
+                    },
+                    options: {
+                        responsive: false,
+                        title: {
+                            display: true,
+                            position: 'top',
+                            fontSize: 16,
+                            fontColor: '#111',
+                            padding: 20
+                        },
+                        legend: {
+                            display: true,
+                            position: 'bottom',
+                            labels: {
+                                boxWidth: 20,
+                                fontColor: '#111',
+                                padding: 15
+                            }
+                        },
+                        tooltips: {
+                            enabled: false
+                        },
+                        plugins: {
+                            datalabels: {
+                                color: '#111',
+                                textAlign: 'center',
+                                font: {
+                                    lineHeight: 1.6
+                                },
+                                formatter: function(value, ctx) {
+                                    return ctx.chart.data.labels[ctx.dataIndex] + '\n' + value + '%';
+                                }
+                            }
+                        }
+                    }
+                });
+            })
         }
             
     }
