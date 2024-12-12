@@ -43,3 +43,24 @@ def game_full_info(db, game_id):
   return {"admin_name": host["name"], "players_num": players_num, "form_num": status_count["form"],
           "accepted_cheques" :accepted_cheques, "not_accepted_cheques": not_accepted_cheques,
           "sent_gifts": status_count["sent"], "got_gifts": got_gifts }
+
+
+def search_player_w_fields(db, fields):
+  documents = db["users"]
+  results = documents.find({"branch": {"$eq": "CSE"}}, {"branch": {"$exists": True}})
+  return results
+
+def search_host_w_fields(db, fields):
+  documents = db["users"]
+  results = documents.find({"branch": {"$eq": "CSE"}}, {"branch": {"$exists": True}})
+  return results
+
+def search_games_w_fields(db, fields):
+  documents = db["games"]
+  results = documents.find({"branch": {"$eq": "CSE"}}, {"branch": {"$exists": True}})
+  return results
+
+def search_events_w_fields(db, fields):
+  documents = db["events"]
+  results = documents.find({"branch": {"$eq": "CSE"}}, {"branch": {"$exists": True}})
+  return results
