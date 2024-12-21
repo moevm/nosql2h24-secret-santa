@@ -18,8 +18,66 @@
                 </div>
                 <button id="close">Cancel</button>
             </dialog>
+            <dialog class="dialigF2" id="FDialog2">
+                <div>
+                    <div style="display: flex; flex-direction: row;">
+                        <div style="display: flex; flex-direction: column;">
+                            <span style="text-align: center;"><b>Роль участника</b></span>
+                            <div id="role">
+                                <div class="radio"><label><input type="radio" name="role[]" value="1"> Игрок</label></div>
+                                <div class="radio"><label><input type="radio" name="role[]" value="2"> Организатор</label></div>
+                            </div>
+                        </div>
+                        <div style="display: flex; flex-direction: column; margin-left: 4%;">
+                            <span style="text-align: center;"><b>Действие в системе</b></span>
+                            <div id="action">
+                                <div class="checkbox"><label><input type="checkbox" name="action[]" value="1"> Заполнил анкету</label></div>
+                                <div class="checkbox"><label><input type="checkbox" name="action[]" value="2"> Купил подарок</label></div>
+                                <div class="checkbox"><label><input type="checkbox" name="action[]" value="3"> Отправил подарок</label></div>
+                                <div class="checkbox"><label><input type="checkbox" name="action[]" value="4"> Получил подарок</label></div>
+                            </div>
+                        </div> 
+                    </div>
+                    <div style="display: flex; flex-direction: column; margin-top: 2%;">
+                            <span style="text-align: center;"><b>Имя участника</b></span>
+                            <div style="display: flex; flex-direction: row; margin-top: 2%;">
+                                <input type="text" id="name-player" name="NameP" placeholder="Введите имя игрока">
+                            </div>
+                        </div>
+                    <div style="display: flex; flex-direction: row; margin-top: 2%;">
+                        <div style="display: flex; flex-direction: column;">
+                            <span style="text-align: center;"><b>Адрес получения</b></span>
+                            <div style="display: flex; flex-direction: row; margin-top: 2%;">
+                                <input type="text" id="address" name="Address" placeholder="Введите адрес получения">
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: flex; flex-direction: row; margin-top: 2%;">
+                        <div style="display: flex; flex-direction: column;">
+                            <span style="text-align: center;"><b>Пожелания участника для подарка</b></span>
+                            <div style="display: flex; flex-direction: row; margin-top: 2%;">
+                                <input type="text" id="wishlist" name="wl" placeholder="Введите пожелания участника">
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: flex; flex-direction: row; margin-top: 2%;">
+                        <div style="display: flex; flex-direction: column;">
+                            <span style="text-align: center;"><b>Что дарить не следует</b></span>
+                            <div style="display: flex; flex-direction: row; margin-top: 2%;">
+                                <input type="text" id="stoplist" name="sl" placeholder="Введите предметы из стоп-листа">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button id="closeF2" style="margin-top: 5%;">Cancel</button>
+                <button id="Bfilter">Применить фильтры</button>
+            </dialog>
             <div id="list_people" class="list"></div>
-            <div><button class="return" onclick="window.location.href='/admin'">Вернуться назад</button></div>
+            <div style="display: flex; flex-direction: row; justify-content: space-around;">
+                <button class="return" onclick="window.location.href='/admin'">Вернуться назад</button>
+                <button class="return" onclick="Filter2()">Фильтрация</button>
+            </div>
+            
         </div>
         
     </body>

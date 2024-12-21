@@ -20,8 +20,80 @@
                 </div>
                 <button id="close" style="bottom: 0; position:absolute;">Cancel</button>
             </dialog>
+            <dialog class="dialigF" id="FDialog">
+                <div>
+                    <div style="display: flex; flex-direction: row;">
+                        <div style="display: flex; flex-direction: column;">
+                            <span style="text-align: center;"><b>Минимальная цена подарка</b></span>
+                            <div style="display: flex; flex-direction: row; margin-top: 2%;">
+                                <span>От </span>
+                                <input type="number" id="min-price-min" name="min_price_max" value="0">
+                            </div>
+                            <div style="display: flex; flex-direction: row; margin-top: 2%;">
+                                <span>До</span> 
+                                <input type="number" id="max-price-min" name="max_price_max" value="1000">
+                            </div>
+                        </div>
+                        <div style="display: flex; flex-direction: column;">
+                            <span style="text-align: center;"><b>Максимальная цена подарка</b></span>
+                            <div style="display: flex; flex-direction: row; margin-top: 2%;">
+                                <span>От</span>
+                                <input type="number" id="min-price-max" name="min_price_max" value="1001">
+                            </div>
+                            <div style="display: flex; flex-direction: row; margin-top: 2%;">
+                                <span>До</span> 
+                                <input type="number" id="max-price-max" name="max_price_max" value="5000">
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: flex; flex-direction: row; margin-top: 2%;">
+                        <div style="display: flex; flex-direction: column;">
+                            <span style="text-align: center;"><b>Срок заполнения анкет</b></span>
+                            <div style="display: flex; flex-direction: row; margin-top: 2%;">
+                                <span>От</span>
+                                <input type="date" id="min-date-profile" name="min_profile">
+                            </div>
+                            <div style="display: flex; flex-direction: row; margin-top: 2%;">
+                                <span>До</span> 
+                                <input type="date" id="max-date-profile" name="max_profile">
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: flex; flex-direction: row; margin-top: 2%;">
+                        <div style="display: flex; flex-direction: column;">
+                            <span style="text-align: center;"><b>Срок отправки чека оплаты</b></span>
+                            <div style="display: flex; flex-direction: row; margin-top: 2%;">
+                                <span>От</span>
+                                <input type="date" id="min-check-buy" name="min_check">
+                            </div>
+                            <div style="display: flex; flex-direction: row; margin-top: 2%;">
+                                <span>До</span> 
+                                <input type="date" id="max-check-buy" name="max_check">
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: flex; flex-direction: row; margin-top: 2%;">
+                        <div style="display: flex; flex-direction: column;">
+                            <span style="text-align: center;"><b>Срок отправки подарка</b></span>
+                            <div style="display: flex; flex-direction: row; margin-top: 2%;">
+                                <span>От</span>
+                                <input type="date" id="min-send" name="min_send">
+                            </div>
+                            <div style="display: flex; flex-direction: row; margin-top: 2%;">
+                                <span>До</span> 
+                                <input type="date" id="max-send" name="max_send">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button id="closeF" style="margin-top: 5%;">Cancel</button>
+                <button id="Bfilter">Применить фильтры</button>
+            </dialog>
             <div id="list_team" class="list"></div>
-            <div><button class="return" onclick="window.location.href='/admin'">Вернуться назад</button></div>
+            <div style="display: flex; flex-direction: row; justify-content: space-around;">
+                <button class="return" onclick="window.location.href='/admin'">Вернуться назад</button>
+                <button class="return" onclick="Filter()">Фильтрация</button>
+            </div>
         </div>
     </body>
     <script src="{{ url_for('static', filename='js/games_list.js') }}"></script>
