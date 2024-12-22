@@ -1,5 +1,5 @@
 window.addEventListener("load", async function(){
-    await fetch(new URL('/get_list_people', 'http://localhost:8000').href, {
+    await fetch(new URL('/get_actions', 'http://localhost:8000').href, {
                 method: "GET",
                 headers: {
                 'Accept': 'application/json',
@@ -14,7 +14,7 @@ window.addEventListener("load", async function(){
             div.style.flexDirection = "row";
             div.style.justifyContent = "space-between";
             let text1 = this.document.createElement('div');
-            text1.textContent = i;
+            text1.textContent = content[i];
 
             text1.style.color = "black";
             text1.style.fontSize = "40px";

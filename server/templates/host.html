@@ -25,7 +25,7 @@
             </dialog>
             <div style="display: flex; flex-direction: column; margin-top: 5%; margin-left: 5%; padding: 2% 2%; width: 100%; ">
                 <div style="width: 100%; text-align: center; color: black; font-size: 30px;font-weight: 300; word-wrap: break-word">Возможность редактирования столбца “Кому дарит”</div>
-                <table>
+                <table id="users_table">
                     <tr>
                         <th>Имя<br/>игрока</th>
                         <th>Кому дарит</th>
@@ -55,7 +55,7 @@
                         <td></td>
                     </tr>
                 </table>
-                <button class="keepB">Сохранить</button>
+                <button class="keepB" id="save_button">Сохранить</button>
             </div>
         </div>
         <script src="{{ url_for('static', filename='js/org_table.js') }}"></script>

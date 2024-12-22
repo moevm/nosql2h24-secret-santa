@@ -1,8 +1,9 @@
 import flask
 from flask import Flask
 import json
-
+import datetime
 from db import database
+from src.utils import get_actions_types
 
 db = database.Database("mongodb://root:example@db:27017/", "secret_santa_db")
 app = Flask(__name__)
@@ -62,7 +63,60 @@ def host():
 
 @app.route('/get_list_people')
 def get_list_people():
-    return db.users_list()
+    #return db.users_list()
+    return [{
+        #'_id': ObjectId('6722d278ee5e086ddmeff8b0'),
+        'id': 1,
+        'name': 'test_user1',
+        'email': 'test_email1@mail.com',
+        'password': 'aafewfwefg',
+        'is_host': True,
+        'created_at': datetime.datetime(2024, 11, 11, 0, 0),
+        'updated_at': datetime.datetime(2024, 11, 12, 0, 0)
+    },
+    {
+        #'_id': ObjectId('6722d278ee5e086effffuyuggb0'),
+        'id': 2,
+        'name': 'test_user2',
+        'email': 'test_email2@mail.com',
+        'password': 'hnhytresfsd',
+        'is_host': False,
+        'address': 'nevsky str. 17',
+        'index': 111111,
+        'phone': 89999999999,
+        'status': 1,
+        'delivery_type': 1,
+        'wishlist': 'flowers',
+        'stoplist': 'candles',
+        'recipient': 3,
+        'santa': 3,
+        'got_gift': False,
+        'created_at': datetime.datetime(2024, 11, 11, 0, 0),
+        'updated_at': datetime.datetime(2024, 11, 12, 0, 0),
+        'wrong_gift': False,
+    },
+    {
+        #'_id': ObjectId('6722d278ee5e086effffuyuggb0'),
+        'id': 3,
+        'name': 'test_user3',
+        'email': 'test_email3@mail.com',
+        'password': 'hnhytresfsd',
+        'is_host': False,
+        'address': 'nevsky str. 17',
+        'index': 111111,
+        'phone': 89999999999,
+        'status': 1,
+        'delivery_type': 1,
+        'wishlist': 'flowers',
+        'stoplist': 'candles',
+        'recipient': 2,
+        'santa': 2,
+        'got_gift': False,
+        'created_at': datetime.datetime(2024, 11, 11, 0, 0),
+        'updated_at': datetime.datetime(2024, 11, 12, 0, 0),
+        'wrong_gift': False,
+    },
+    ]
 
 @app.route('/get_list_team')
 def get_list_team():
@@ -75,11 +129,54 @@ def post_new_team():
     db.register_game(team_info)
     return app.response_class(status=200)
 
+@app.route('/update_user', methods=['POST'])
+def update_user():
+    user_info = json.loads(flask.request.data)
+    print(user_info)
+    #обновить информацию об игроке в бд
+    return app.response_class(status=200)
+
+
+@app.route('/update_users', methods=['POST'])
+def update_users():
+    users = json.loads(flask.request.data)
+    print(users)
+    #обновить всю информацию о юзерах (по сути полностью стереть старую и записать новую)
+    return app.response_class(status=200)
+
 
 @app.route('/user/<username>')
 def get_user_page(username):
     return flask.render_template('player_page.html')
 
+@app.route('/get_actions')
+def get_actions():
+    actions_types = get_actions_types()
+    #запрос на получение всех событий
+    actions = [{'player_id': 2, 'type': 2, 'date': datetime.datetime(2024, 11, 21, 0, 0)},
+               {'player_id': 1, 'type': 1, 'date': datetime.datetime(2024, 12, 12, 0, 0)}]
+
+    users = get_list_people()
+    actions_list = []
+    for action in actions:
+        for user in users:
+            if user['id'] == action['player_id']:
+                actions_list.append(f'{user["name"]} {actions_types[action["type"]]}')
+
+    return actions_list
+
+
+@app.route('/get_actions_statistics')
+def get_actions_statistics():
+    actions_types = get_actions_types()
+    statistics = [0 for _ in range(len(actions_types))]
+
+    #запрос на получение всех событий
+    actions = [{'player_id': 2, 'type': 2, 'date': datetime.datetime(2024, 11, 21, 0, 0)},
+               {'player_id': 1, 'type': 1, 'date': datetime.datetime(2024, 12, 12, 0, 0)}]
+    for action in actions:
+        statistics[action['type']] += 1
+    return statistics
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8000)
