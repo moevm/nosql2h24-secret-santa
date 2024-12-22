@@ -9,13 +9,16 @@
         <title>Страница организатора</title>
     </head>
     <body>
+        <script>
+            let game_id = {{ game_id }}
+        </script>
         <div class="pageOrg">
             <div style="width: 525px; justify-content:first baseline; align-items: center; display: flex; flex-direction: column;">
                 <img  src="../static/img/Frame 2.png/">
                 <div class="groupButton">
                     <button class="buttonP">Экспортировать данные</button>
                     <button class="buttonPD" disabled>Статистика команды</button>
-                    <button class="buttonP" onclick="window.location.href='/host'">Данные об игроках</button>
+                    <button class="buttonP" onclick="window.location.href=`/host/${game_id}`">Данные об игроках</button>
                 </div>
             </div>
             <div style="display: flex; flex-direction: column; margin-left: 5%;">
@@ -25,7 +28,7 @@
                     <button class="button1" onclick="buyChart()">По чеку оплаты</button>
                     <button class="button1" onclick="sendChart()">По отправке подарков</button>
                 </div>
-                <canvas id="myChart" style="width: auto; height: 50vh; margin-top: 5%;"></canvas>
+                <canvas id="myChart" width="1" height="1" style="width: auto; height:50vh; margin-top: 5vh"></canvas>
             </div>
         </div>
         <script src="{{ url_for('static', filename='js/org_page.js') }}"></script>

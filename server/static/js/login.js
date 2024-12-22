@@ -13,8 +13,8 @@ loginButton.addEventListener('click', async function(){
     .then(content => {
         for (let user of content) {
             if (user.email == login) {
-                if (user.isHost) {
-                    window.location.href = `/host`;
+                if (user.is_host) {
+                    window.location.href = `/host/${user.id}`;
                 } else {
                     window.location.href = `/user/${login}`;
                 }

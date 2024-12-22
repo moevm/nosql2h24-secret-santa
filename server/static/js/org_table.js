@@ -11,12 +11,14 @@ Button1.addEventListener('click', () => {
 })
 
 async function init() {
-    await fetch(new URL('/get_list_people', 'http://localhost:8000').href, {
+    console.log(game_id);
+    await fetch(new URL(`/get_list_people_from_team/${game_id}`, 'http://localhost:8000').href, {
                 method: "GET",
                 headers: {
                 'Accept': 'application/json',
                 "Content-type": "application/json; charset=UTF-8"
-    }})
+                },
+    })
     .then(res => res.json())
     .then(content => {
         let saveButton = document.getElementById('save_button')

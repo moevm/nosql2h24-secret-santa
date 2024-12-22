@@ -127,7 +127,8 @@ function displayRadioValue() {
                             }]
                         },
                         options: {
-                            responsive: false,
+                            responsive: true,
+                            devicePixelRatio: 4,
                             title: {
                                 display: true,
                                 position: 'top',
@@ -184,7 +185,8 @@ function displayRadioValue() {
                             }]
                         },
                         options: {
-                            responsive: false,
+                            responsive: true,
+                            devicePixelRatio: 4,
                             title: {
                                 display: true,
                                 position: 'top',
@@ -241,7 +243,8 @@ function displayRadioValue() {
                             }]
                         },
                         options: {
-                            responsive: false,
+                            responsive: true,
+                            devicePixelRatio: 4,
                             title: {
                                 display: true,
                                 position: 'top',
@@ -298,7 +301,8 @@ function displayRadioValue() {
                             }]
                         },
                         options: {
-                            responsive: false,
+                            responsive: true,
+                            devicePixelRatio: 4,
                             title: {
                                 display: true,
                                 position: 'top',
@@ -347,7 +351,8 @@ function displayRadioValue() {
                             }]
                         },
                         options: {
-                            responsive: false,
+                            responsive: true,
+                            devicePixelRatio: 4,
                             title: {
                                 display: true,
                                 position: 'top',
@@ -478,7 +483,8 @@ function displayRadioValue() {
                             }]
                         },
                         options: {
-                            responsive: false,
+                            responsive: true,
+                            devicePixelRatio: 4,
                             title: {
                                 display: true,
                                 position: 'top',
@@ -535,7 +541,8 @@ function displayRadioValue() {
                             }]
                         },
                         options: {
-                            responsive: false,
+                            responsive: true,
+                            devicePixelRatio: 4,
                             title: {
                                 display: true,
                                 position: 'top',
@@ -591,7 +598,8 @@ function displayRadioValue() {
                             }]
                         },
                         options: {
-                            responsive: false,
+                            responsive: true,
+                            devicePixelRatio: 4,
                             title: {
                                 display: true,
                                 position: 'top',

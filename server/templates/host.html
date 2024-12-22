@@ -8,12 +8,15 @@
         <title>Страница организатора</title>
     </head>
     <body>
+        <script>
+            let game_id = {{ game_id }}
+        </script>
         <div class="pageOrg">
             <div style="width: 525px; justify-content:first baseline; align-items: center; display: flex; flex-direction: column;">
                 <img  src="../static/img/Frame 2.png/">
                 <div class="groupButton">
                     <button class="buttonP">Экспортировать данные</button>
-                    <button class="buttonP" onclick="window.location.href='/statistics_org'">Статистика команды</button>
+                    <button class="buttonP" onclick="window.location.href=`/statistics_org/${game_id}`">Статистика команды</button>
                     <button class="buttonPD" disabled>Данные об игроках</button>
                 </div>
             </div>
@@ -25,7 +28,7 @@
             </dialog>
             <div style="display: flex; flex-direction: column; margin-top: 5%; margin-left: 5%; padding: 2% 2%; width: 100%; ">
                 <div style="width: 100%; text-align: center; color: black; font-size: 30px;font-weight: 300; word-wrap: break-word">Возможность редактирования столбца “Кому дарит”</div>
-                <table id="users_table">
+                <table id="users_table" >
                     <tr>
                         <th>Имя<br/>игрока</th>
                         <th>Кому дарит</th>

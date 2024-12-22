@@ -37,9 +37,9 @@ def profile():
 def status():
     return flask.render_template('status.html')
 
-@app.route('/statistics_org')
-def statistics_org():
-    return flask.render_template('page_org_statictics.html')
+@app.route('/statistics_org/<game_id>')
+def statistics_org(game_id):
+    return flask.render_template('page_org_statictics.html', game_id=game_id)
 
 @app.route('/list_people')
 def list_people():
@@ -57,9 +57,14 @@ def list_action():
 def site_statistics():
     return flask.render_template('site_statistics.html')
 
-@app.route('/host')
-def host():
-    return flask.render_template('host.html')
+@app.route('/host/<id>')
+def host(id):
+    games = get_list_team()
+    for game in games:
+        if int(id) in game['users']:
+            return flask.render_template('host.html', game_id=game['id'])
+    return flask.render_template('login_page.html')
+
 
 @app.route('/get_list_people')
 def get_list_people():
@@ -117,6 +122,19 @@ def get_list_people():
     #     'wrong_gift': False,
     # },
     # ]
+
+@app.route('/get_list_people_from_team/<game_id>')
+def get_list_people_from_team(game_id):
+    users = get_list_people()
+    games = get_list_team()
+
+    game_users_list = []
+    for game in games:
+        if game['id'] == int(game_id):
+            for user in users:
+                if user['id'] in game['users'] and not user['is_host']:
+                    game_users_list.append(user)
+    return game_users_list
 
 @app.route('/get_list_team')
 def get_list_team():
@@ -259,6 +277,76 @@ def get_teams_troubles():
     return [len(teams_with_form_troubles), len(teams_with_buying_gifts_troubles), len(teams_with_sending_gifts_troubles),
             len(teams_with_confirm_troubles)]
 
+@app.route('/get_all_game_statistics/<game_id>')
+def get_all_game_statistics(game_id):
+    games = get_list_team()
+    users = get_list_people()
+
+    forms = 0
+    cheque = 0
+    sends = 0
+    for game in games:
+        if int(game_id) == game['id']:
+            for user_id in game['users']:
+                for user in users:
+                    if user_id == user['id'] and not user['is_host']:
+                        if user['status'] >= 0:
+                            forms += 1
+                        if user['status'] >= 1:
+                            cheque += 1
+                        if user['status'] >= 2:
+                            sends += 1
+            return [len(game['users']) - 1, forms, cheque, sends]
+    return [0, 0, 0, 0]
+
+
+@app.route('/get_game_statistics_form/<game_id>')
+def get_game_statistics_form(game_id):
+    games = get_list_team()
+    users = get_list_people()
+
+    forms = 0
+    for game in games:
+        if int(game_id) == game['id']:
+            for user_id in game['users']:
+                for user in users:
+                    if user_id == user['id'] and not user['is_host']:
+                        if user['status'] >= 0:
+                            forms += 1
+            return [forms, len(game['users']) - 1 - forms]
+    return [0, 0]
+
+@app.route('/get_game_statistics_cheques/<game_id>')
+def get_game_statistics_cheques(game_id):
+    games = get_list_team()
+    users = get_list_people()
+
+    cheques = 0
+    for game in games:
+        if int(game_id) == game['id']:
+            for user_id in game['users']:
+                for user in users:
+                    if user_id == user['id'] and not user['is_host']:
+                        if user['status'] >= 1:
+                            cheques += 1
+            return [cheques, 0, len(game['users']) - 1 - cheques]
+    return [0, 0, 0]
+
+@app.route('/get_game_statistics_sends/<game_id>')
+def get_game_statistics_sends(game_id):
+    games = get_list_team()
+    users = get_list_people()
+
+    sends = 0
+    for game in games:
+        if int(game_id) == game['id']:
+            for user_id in game['users']:
+                for user in users:
+                    if user_id == user['id'] and not user['is_host']:
+                        if user['status'] >= 2:
+                            sends += 1
+            return [sends, len(game['users']) - 1 - sends]
+    return [0, 0]
 
 @app.route('/import_db', methods=['POST'])
 def import_db():
