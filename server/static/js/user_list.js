@@ -1,10 +1,15 @@
 const Button = document.getElementById("close");
 const favDialog = document.getElementById("favDialog");
 const dialog = document.querySelector("dialog");
-
+const Button2 = document.getElementById("closeF2");
+const FD2 = document.getElementById("FDialog2");
 
 Button.addEventListener('click', () => {
     dialog.close();
+})
+
+Button2.addEventListener('click', () => {
+    FD2.close();
 })
 
 window.addEventListener("load", async function(){
@@ -67,4 +72,40 @@ window.addEventListener("load", async function(){
         }
     })
 });
+
+function Filter2(){
+    FD2.showModal();
+}
+
+document.querySelectorAll('input[type="radio"][name="role[]"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+        if (document.getElementById('org').checked){
+            document.getElementById('1A').disabled = true;
+            document.getElementById('2A').disabled = true;
+            document.getElementById('3A').disabled = true;
+            document.getElementById('1S').disabled = true;
+            document.getElementById('2S').disabled = true;
+            document.getElementById('3S').disabled = true;
+            document.getElementById('4S').disabled = true;
+            document.getElementById('name-player').disabled = true;
+            document.getElementById('address').disabled = true;
+            document.getElementById('wishlist').disabled = true;
+            document.getElementById('stoplist').disabled = true;
+        }
+        if (document.getElementById('play').checked){
+            document.getElementById('name-player').disabled = false;
+            document.getElementById('address').disabled = false;
+            document.getElementById('wishlist').disabled = false;
+            document.getElementById('stoplist').disabled = false;
+            document.getElementById('1A').disabled = false;
+            document.getElementById('2A').disabled = false;
+            document.getElementById('3A').disabled = false;
+            document.getElementById('1S').disabled = false;
+            document.getElementById('2S').disabled = false;
+            document.getElementById('3S').disabled = false;
+            document.getElementById('4S').disabled = false;
+        }
+    });
+  });
+
 

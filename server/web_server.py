@@ -178,5 +178,29 @@ def get_actions_statistics():
         statistics[action['type']] += 1
     return statistics
 
+@app.route('import_db', methods=['POST'])
+def import_db():
+    return app.response_class(status=200)
+
+@app.route('export_db', methods=['POST'])
+def export_db():
+    export_status = 200
+    # вместо filename - название файла для экспорта. если всё норм, то export_db вернёт True
+    if not db.export_db("filename"):
+      export_status = 500
+    return app.response_class(status=export_status)
+
+@app.route('import_db', methods=['POST'])
+def import_db():
+    # db.import_db()
+    return app.response_class(status=200)
+
+
+@app.route('/search/<entity>')
+def get_entity(entity):
+    #entity - название сущности для search_entity методов Database
+    #нужно передать json с полями, по которым искать
+    return flask.render_template('player_page.html')
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8000)

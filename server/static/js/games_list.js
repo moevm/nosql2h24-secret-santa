@@ -1,9 +1,14 @@
 const Button = document.getElementById("close");
 const favDialog = document.getElementById("favDialog");
 const dialog = document.querySelector("dialog");
+const Button1 = document.getElementById("closeF");
+const FD = document.getElementById("FDialog");
 
 Button.addEventListener('click', () => {
     dialog.close();
+})
+Button1.addEventListener('click', () => {
+    FD.close();
 })
 
 window.addEventListener("load", async function(){
@@ -68,7 +73,8 @@ window.addEventListener("load", async function(){
             });
         }
     })
-
 });
 
-
+function Filter(){
+    FD.showModal();
+}

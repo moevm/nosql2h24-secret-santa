@@ -1,13 +1,14 @@
 from pymongo import MongoClient
-from .get_db import find_one, get_games, get_users
-from .add_db import add_game, add_user
-
+from .get_db import *
+from .add_db import *
+from .imp_exp import save_db, restore_db
 
 class Database:
   def __init__(self, connection_str, db_name):
     self.db = MongoClient(connection_str).get_database(db_name)
     self.game_id = 1
     self.user_id = 1
+    self.event_id = 1
 
   def users_list(self):
     return get_users(self.db)
@@ -17,7 +18,7 @@ class Database:
 
   def register_game(self, team_info):
     host = team_info["admin"]
-    host.update({"id": self.user_id, "game_id":self.game_id, "is_host": True})
+    host.update({"id": self.user_id, "game_id": self.game_id, "is_host": True})
     add_user(self.db, host)
     self.user_id += 1
 
@@ -43,3 +44,27 @@ class Database:
 
   def get_game(self, game_id):
     return find_one("games", self.db, game_id)
+
+  def export_db(self, file_name):
+    return save_db(self.db, file_name)
+
+  def import_db(self, import_json):
+    max_ids = (1, 1, 1)
+    try:
+      max_ids = restore_db(self.db, import_json)
+    except ValueError:
+      print("синтаксически неверный JSON")
+      return False
+    self.user_id, self.game_id, self.event_id = max_ids
+
+  def search_host(self, fields):
+    return search_host_w_fields(self.db, fields)
+
+  def search_player(self, fields):
+    return search_player_w_fields(self.db, fields)
+
+  def search_game(self, fields):
+    return search_games_w_fields(self.db, fields)
+
+  def search_event(self, fields):
+    return search_events_w_fields(self.db, fields)
