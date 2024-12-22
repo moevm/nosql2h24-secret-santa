@@ -1,9 +1,10 @@
 import flask
 from flask import Flask
 import json
+import re
 import datetime
 from db import database
-from src.utils import get_actions_types
+from src.utils import get_actions_types, get_delivery_types
 
 db = database.Database("mongodb://root:example@db:27017/", "secret_santa_db")
 app = Flask(__name__)
@@ -68,7 +69,7 @@ def host(id):
 
 @app.route('/get_list_people')
 def get_list_people():
-    return db.users_list()
+   return db.users_list()
     # return [{
     #     #'_id': ObjectId('6722d278ee5e086ddmeff8b0'),
     #     'id': 1,
@@ -91,8 +92,8 @@ def get_list_people():
     #     'phone': 89999999999,
     #     'status': 1,
     #     'delivery_type': 1,
-    #     'wishlist': 'flowers',
-    #     'stoplist': 'candles',
+    #     'wishlist': 'sweets, computer',
+    #     'stoplist': 'books ',
     #     'recipient': 3,
     #     'santa': 3,
     #     'got_gift': False,
@@ -112,7 +113,7 @@ def get_list_people():
     #     'phone': 89999999999,
     #     'status': 1,
     #     'delivery_type': 1,
-    #     'wishlist': 'flowers',
+    #     'wishlist': 'flowers;money',
     #     'stoplist': 'candles',
     #     'recipient': 2,
     #     'santa': 2,
@@ -347,6 +348,62 @@ def get_game_statistics_sends(game_id):
                             sends += 1
             return [sends, len(game['users']) - 1 - sends]
     return [0, 0]
+
+@app.route('/get_hosts')
+def get_hosts():
+    users = get_list_people()
+    hosts = []
+    for user in users:
+        if user['is_host']:
+            hosts.append(user)
+    return hosts
+
+@app.route('/get_filtered_players', methods=['POST'])
+def get_filtered_players():
+    filters_info = json.loads(flask.request.data)
+    delivery_types = get_delivery_types()
+    users = get_list_people()
+    filtered_users = []
+    delimiters = [' ', ',', ';']
+    pattern = '|'.join(map(re.escape, delimiters))
+
+    for user in users:
+        if user['is_host']:
+            continue
+        if filters_info['status'] > -1:
+            if user['status'] < filters_info['status']:
+                continue
+        if filters_info['delivery_type'] != 'none' and delivery_types[filters_info['delivery_type']] != user['delivery_type']:
+            continue
+        if filters_info['name'] != '' and filters_info['name'].lower() != user['name'].lower():
+            continue
+        if filters_info['address'] != '' and filters_info['address'].lower() != user['address'].lower():
+            continue
+        if filters_info['wishlist'] != '':
+            filters_wishlist = re.split(pattern, filters_info['wishlist'])
+            user_wishlist = re.split(pattern, user['wishlist'])
+            found = False
+            for user_wishlist_item in user_wishlist:
+                for filters_wishlist_item in filters_wishlist:
+                    if user_wishlist_item.lower() == filters_wishlist_item.lower():
+                        found = True
+            if not found:
+                continue
+        if filters_info['stoplist'] != '':
+            filters_stoplist = re.split(pattern, filters_info['stoplist'])
+            user_stoplist = re.split(pattern, user['stoplist'])
+            found = False
+            for user_stoplist_item in user_stoplist:
+                for filters_stoplist_item in filters_stoplist:
+                    if user_stoplist_item.lower() == filters_stoplist_item.lower():
+                        found = True
+            if not found:
+                continue
+        filtered_users.append(user)
+    return filtered_users
+
+
+
 
 @app.route('/import_db', methods=['POST'])
 def import_db():

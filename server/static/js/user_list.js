@@ -3,6 +3,7 @@ const favDialog = document.getElementById("favDialog");
 const dialog = document.querySelector("dialog");
 const Button2 = document.getElementById("closeF2");
 const FD2 = document.getElementById("FDialog2");
+const filterButton = document.getElementById('Bfilter');
 
 Button.addEventListener('click', () => {
     dialog.close();
@@ -12,16 +13,121 @@ Button2.addEventListener('click', () => {
     FD2.close();
 })
 
-window.addEventListener("load", async function(){
-    await fetch(new URL('/get_list_people', 'http://localhost:8000').href, {
-                method: "GET",
+filterButton.addEventListener('click', applyFilters);
+
+
+window.addEventListener("load", init);
+
+function Filter2(){
+    FD2.showModal();
+}
+
+document.querySelectorAll('input[type="radio"][name="role[]"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+        if (document.getElementById('org').checked){
+            document.getElementById('1A').disabled = true;
+            document.getElementById('2A').disabled = true;
+            document.getElementById('3A').disabled = true;
+            document.getElementById('1S').disabled = true;
+            document.getElementById('2S').disabled = true;
+            document.getElementById('3S').disabled = true;
+            document.getElementById('4S').disabled = true;
+            document.getElementById('name-player').disabled = true;
+            document.getElementById('address').disabled = true;
+            document.getElementById('wishlist').disabled = true;
+            document.getElementById('stoplist').disabled = true;
+        }
+        if (document.getElementById('play').checked){
+            document.getElementById('name-player').disabled = false;
+            document.getElementById('address').disabled = false;
+            document.getElementById('wishlist').disabled = false;
+            document.getElementById('stoplist').disabled = false;
+            document.getElementById('1A').disabled = false;
+            document.getElementById('2A').disabled = false;
+            document.getElementById('3A').disabled = false;
+            document.getElementById('1S').disabled = false;
+            document.getElementById('2S').disabled = false;
+            document.getElementById('3S').disabled = false;
+            document.getElementById('4S').disabled = false;
+        }
+    });
+  });
+
+async function applyFilters() {
+    if (!document.getElementById('org').checked && !document.getElementById('play').checked) {
+        let request = new XMLHttpRequest();
+        request.open('GET', 'http://localhost:8000/get_list_people', false);
+        request.send(null);
+
+        let data = [];
+        if (request.status == 200) {
+            data = JSON.parse(request.responseText);
+        }
+        insertInfo(data);
+    }
+    if (document.getElementById('org').checked) {
+        let request = new XMLHttpRequest();
+        request.open('GET', 'http://localhost:8000/get_hosts', false);
+        request.send(null);
+
+        let data = [];
+        if (request.status == 200) {
+            data = JSON.parse(request.responseText);
+        }
+        insertInfo(data);
+    }
+    if (document.getElementById('play').checked) {
+        let status = -1;
+        if (document.getElementById('1A').checked) {
+            status = 0;
+        }
+        if (document.getElementById('2A').checked) {
+            status = 1;
+         }
+        if (document.getElementById('3A').checked) {
+            status = 2;
+         }
+
+         let delivery_type = 'none';
+         if (document.getElementById('1S').checked) {
+            delivery_type = 'ticket';
+         }
+         if (document.getElementById('2S').checked) {
+            delivery_type = 'cert';
+         }
+         if (document.getElementById('3S').checked) {
+            delivery_type = 'mail';
+         }
+         if (document.getElementById('4S').checked) {
+            delivery_type = 'other';
+         }
+
+         let name = document.getElementById('name-player').value;
+         let address = document.getElementById('address').value;
+         let wishlist = document.getElementById('wishlist').value;
+         let stoplist = document.getElementById('stoplist').value;
+
+         let filtersInfo = {status: status, delivery_type: delivery_type,
+                            name: name, address: address, wishlist: wishlist,
+                            stoplist: stoplist};
+         await fetch(new URL('/get_filtered_players', 'http://localhost:8000').href, {
+                method: "POST",
                 headers: {
                 'Accept': 'application/json',
                 "Content-type": "application/json; charset=UTF-8"
-    }})
-    .then(res => res.json())
-    .then(content => {
+                },
+                body: JSON.stringify(filtersInfo)
+            })
+         .then(res => res.json())
+         .then(content => insertInfo(content))
+    }
+
+    FD2.close();
+}
+
+function insertInfo(content) {
         let list = this.document.getElementById('list_people');
+        list.innerHTML = "";
         for (let i =0; i < content.length; i++){
             let div = document.createElement('div');
             div.style.display = "flex";
@@ -70,42 +176,17 @@ window.addEventListener("load", async function(){
                 favDialog.showModal();
             });
         }
-    })
-});
-
-function Filter2(){
-    FD2.showModal();
 }
 
-document.querySelectorAll('input[type="radio"][name="role[]"]').forEach(radio => {
-    radio.addEventListener('change', () => {
-        if (document.getElementById('org').checked){
-            document.getElementById('1A').disabled = true;
-            document.getElementById('2A').disabled = true;
-            document.getElementById('3A').disabled = true;
-            document.getElementById('1S').disabled = true;
-            document.getElementById('2S').disabled = true;
-            document.getElementById('3S').disabled = true;
-            document.getElementById('4S').disabled = true;
-            document.getElementById('name-player').disabled = true;
-            document.getElementById('address').disabled = true;
-            document.getElementById('wishlist').disabled = true;
-            document.getElementById('stoplist').disabled = true;
-        }
-        if (document.getElementById('play').checked){
-            document.getElementById('name-player').disabled = false;
-            document.getElementById('address').disabled = false;
-            document.getElementById('wishlist').disabled = false;
-            document.getElementById('stoplist').disabled = false;
-            document.getElementById('1A').disabled = false;
-            document.getElementById('2A').disabled = false;
-            document.getElementById('3A').disabled = false;
-            document.getElementById('1S').disabled = false;
-            document.getElementById('2S').disabled = false;
-            document.getElementById('3S').disabled = false;
-            document.getElementById('4S').disabled = false;
-        }
-    });
-  });
+async function init() {
+    await fetch(new URL('/get_list_people', 'http://localhost:8000').href, {
+                method: "GET",
+                headers: {
+                'Accept': 'application/json',
+                "Content-type": "application/json; charset=UTF-8"
+    }})
+    .then(res => res.json())
+    .then(content => insertInfo(content))
+}
 
 
