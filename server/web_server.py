@@ -518,12 +518,10 @@ def get_filtered_games():
     return filtered_games
 
 
-
-
-
-
 @app.route('/import_db', methods=['POST'])
 def import_db():
+    new_data = json.loads(flask.request.data)
+    print(new_data)
     return app.response_class(status=200)
 
 @app.route('/export_db', methods=['POST'])
