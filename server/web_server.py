@@ -69,7 +69,7 @@ def host(id):
 
 @app.route('/get_list_people')
 def get_list_people():
-   return db.users_list()
+    return db.users_list()
     # return [{
     #     #'_id': ObjectId('6722d278ee5e086ddmeff8b0'),
     #     'id': 1,
@@ -140,19 +140,93 @@ def get_list_people_from_team(game_id):
 @app.route('/get_list_team')
 def get_list_team():
     answer = db.games_list()
-    # answer = [{
-    #     'id': 1,
-    #     'lowest_price': 100,
-    #     'highest_price': 200,
-    #     'form_deadline': '24.01.25',
-    #     'purchase_deadline': '25.01.25',
-    #     'send_deadline': '26.01.25',
-    #     'created_at': '23.01.25',
-    #     'updated_at': '23.01.25',
-    #     'users': [1, 2],
-    #     'events': [1, 2]
-    # }]
+   #  answer = [{
+   #      'id': 1,
+   #      'lowest_price': 100,
+   #      'highest_price': 200,
+   #      'form_deadline': datetime.datetime(2025, 1, 24, 0, 0),
+   #      'purchase_deadline': datetime.datetime(2025, 1, 25, 0, 0),
+   #      'send_deadline': datetime.datetime(2025, 1, 26, 0, 0),
+   #      'created_at': datetime.datetime(2025, 1, 23, 0, 0),
+   #      'updated_at': datetime.datetime(2025, 1, 23, 0, 0),
+   #      'users': [1, 2],
+   #      'events': [1, 2]
+   #  },
+   #  {
+   #      'id': 2,
+   #      'lowest_price': 1000,
+   #      'highest_price': 2000,
+   #      'form_deadline': datetime.datetime(2025, 1, 24, 0, 0),
+   #      'purchase_deadline': datetime.datetime(2025, 1, 25, 0, 0),
+   #      'send_deadline': datetime.datetime(2025, 1, 26, 0, 0),
+   #      'created_at': datetime.datetime(2025, 1, 23, 0, 0),
+   #      'updated_at': datetime.datetime(2025, 1, 23, 0, 0),
+   #      'users': [1, 2],
+   #      'events': [1, 2]
+   #  },
+   #  {
+   #          'id': 3,
+   #          'lowest_price': 10000,
+   #          'highest_price': 20000,
+   #          'form_deadline': datetime.datetime(2025, 1, 24, 0, 0),
+   #          'purchase_deadline': datetime.datetime(2025, 1, 25, 0, 0),
+   #          'send_deadline': datetime.datetime(2025, 1, 26, 0, 0),
+   #          'created_at': datetime.datetime(2025, 1, 23, 0, 0),
+   #          'updated_at': datetime.datetime(2025, 1, 23, 0, 0),
+   #          'users': [1, 2],
+   #          'events': [1, 2]
+   #  }
+   #  ]
     return answer
+
+@app.route('/get_teams_info')
+def get_teams_info():
+    teams_info = []
+    games = get_list_team()
+    users = get_list_people()
+
+    for game in games:
+        team_info = {}
+        team_info.update({'id': game['id']})
+        team_info.update({'players_num': len(game['users'])})
+        team_info.update({'form_date': game['form_deadline']})
+        team_info.update({'purchase_date': game['purchase_deadline']})
+        team_info.update({'send_date': game['send_deadline']})
+        team_info.update({'start_price': game['lowest_price']})
+        team_info.update({'end_price': game['highest_price']})
+        forms = 0
+        cheques = 0
+        sends = 0
+        got_gifts = 0
+        for user in users:
+            if user['id'] in game['users']:
+                if user['is_host']:
+                    team_info.update({'admin_name': user['name']})
+                else:
+                    if user['status'] == 3:
+                        forms += 1
+                        cheques += 1
+                        sends += 1
+                        got_gifts += 1
+                    if user['status'] == 2:
+                        forms += 1
+                        cheques += 1
+                        sends += 1
+                    if user['status'] == 1:
+                        forms += 1
+                        cheques += 1
+                    if user['status'] == 0:
+                        forms += 1
+        team_info.update({'form_num': forms})
+        team_info.update({'accepted_cheques': cheques})
+        team_info.update({'not_accepted_cheques': 0})
+        team_info.update({'sent_gifts': sends})
+        team_info.update({'got_gifts': got_gifts})
+        teams_info.append(team_info)
+    return teams_info
+
+
+
 
 @app.route('/post_new_team', methods=['POST'])
 def post_new_team():
@@ -401,6 +475,49 @@ def get_filtered_players():
                 continue
         filtered_users.append(user)
     return filtered_users
+
+
+@app.route('/get_filtered_games', methods=['POST'])
+def get_filtered_games():
+    filters_info = json.loads(flask.request.data)
+    games = get_teams_info()
+    filtered_games = []
+
+    for game in games:
+        if filters_info['minPriceMin']:
+            if game['start_price'] < int(filters_info['minPriceMin']):
+                continue
+        if filters_info['minPriceMax']:
+            if game['start_price'] > int(filters_info['minPriceMax']):
+                continue
+        if filters_info['maxPriceMin']:
+            if game['end_price'] < int(filters_info['maxPriceMin']):
+                continue
+        if filters_info['maxPriceMax']:
+            if game['end_price'] > int(filters_info['maxPriceMax']):
+                continue
+        if filters_info['formDeadlineMin']:
+            if game['form_date'] < datetime.datetime.fromisoformat(filters_info['formDeadlineMin']):
+                continue
+        if filters_info['formDeadlineMax']:
+            if game['form_date'] > datetime.datetime.fromisoformat(filters_info['formDeadlineMax']):
+                continue
+        if filters_info['chequeDeadlineMin']:
+            if game['purchase_date'] < datetime.datetime.fromisoformat(filters_info['chequeDeadlineMin']):
+                continue
+        if filters_info['chequeDeadlineMax']:
+            if game['purchase_date'] > datetime.datetime.fromisoformat(filters_info['chequeDeadlineMax']):
+                continue
+        if filters_info['sendDeadlineMin']:
+            if game['send_date'] < datetime.datetime.fromisoformat(filters_info['sendDeadlineMin']):
+                continue
+        if filters_info['sendDeadlineMax']:
+            if game['send_date'] > datetime.datetime.fromisoformat(filters_info['sendDeadlineMax']):
+                continue
+        filtered_games.append(game)
+    return filtered_games
+
+
 
 
 

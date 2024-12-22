@@ -3,6 +3,7 @@ const favDialog = document.getElementById("favDialog");
 const dialog = document.querySelector("dialog");
 const Button1 = document.getElementById("closeF");
 const FD = document.getElementById("FDialog");
+const filterButton = document.getElementById('Bfilter');
 
 Button.addEventListener('click', () => {
     dialog.close();
@@ -10,17 +11,13 @@ Button.addEventListener('click', () => {
 Button1.addEventListener('click', () => {
     FD.close();
 })
+filterButton.addEventListener('click', applyFilters);
 
-window.addEventListener("load", async function(){
-    await fetch(new URL('/get_list_team', 'http://localhost:8000').href, { //адрес сервера можно вынести в константу
-                method: "GET",
-                headers: {
-                'Accept': 'application/json',
-                "Content-type": "application/json; charset=UTF-8"
-    }})
-    .then(res => res.json())
-    .then(content => {
+window.addEventListener("load", init);
+
+function insertInfo(content) {
         let listT = document.getElementById('list_team');
+        listT.innerHTML = "";
         for (let i =0; i < content.length; i++){
             let div = document.createElement('div');
             div.style.display = "flex";
@@ -72,8 +69,52 @@ window.addEventListener("load", async function(){
                 favDialog.showModal();
             });
         }
+}
+
+async function init() {
+    await fetch(new URL('/get_teams_info', 'http://localhost:8000').href, { //адрес сервера можно вынести в константу
+                method: "GET",
+                headers: {
+                'Accept': 'application/json',
+                "Content-type": "application/json; charset=UTF-8"
+    }})
+    .then(res => res.json())
+    .then(content => insertInfo(content))
+}
+
+async function applyFilters() {
+    let minPriceMin = document.getElementById('min-price-min').value;
+    let minPriceMax = document.getElementById('max-price-min').value;
+
+    let maxPriceMin = document.getElementById('min-price-max').value;
+    let maxPriceMax = document.getElementById('max-price-max').value;
+
+    let formDeadlineMin = document.getElementById('min-date-profile').value;
+    let formDeadlineMax = document.getElementById('max-date-profile').value;
+
+    let chequeDeadlineMin = document.getElementById('min-check-buy').value;
+    let chequeDeadlineMax = document.getElementById('max-check-buy').value;
+
+    let sendDeadlineMin = document.getElementById('min-send').value;
+    let sendDeadlineMax = document.getElementById('max-send').value;
+
+    let filtersInfo = {minPriceMin: minPriceMin, minPriceMax: minPriceMax,
+                       maxPriceMin: maxPriceMin, maxPriceMax: maxPriceMax,
+                       formDeadlineMin: formDeadlineMin, formDeadlineMax: formDeadlineMax,
+                       chequeDeadlineMin: chequeDeadlineMin, chequeDeadlineMax: chequeDeadlineMax,
+                       sendDeadlineMin: sendDeadlineMin, sendDeadlineMax: sendDeadlineMax};
+    await fetch(new URL('/get_filtered_games', 'http://localhost:8000').href, {
+                method: "POST",
+                headers: {
+                'Accept': 'application/json',
+                "Content-type": "application/json; charset=UTF-8"
+                },
+                body: JSON.stringify(filtersInfo)
     })
-});
+    .then(res => res.json())
+    .then(content => insertInfo(content))
+    FD.close();
+}
 
 function Filter(){
     FD.showModal();
