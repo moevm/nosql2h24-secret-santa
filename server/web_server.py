@@ -140,43 +140,43 @@ def get_list_people_from_team(game_id):
 @app.route('/get_list_team')
 def get_list_team():
     answer = db.games_list()
-   #  answer = [{
-   #      'id': 1,
-   #      'lowest_price': 100,
-   #      'highest_price': 200,
-   #      'form_deadline': datetime.datetime(2025, 1, 24, 0, 0),
-   #      'purchase_deadline': datetime.datetime(2025, 1, 25, 0, 0),
-   #      'send_deadline': datetime.datetime(2025, 1, 26, 0, 0),
-   #      'created_at': datetime.datetime(2025, 1, 23, 0, 0),
-   #      'updated_at': datetime.datetime(2025, 1, 23, 0, 0),
-   #      'users': [1, 2],
-   #      'events': [1, 2]
-   #  },
-   #  {
-   #      'id': 2,
-   #      'lowest_price': 1000,
-   #      'highest_price': 2000,
-   #      'form_deadline': datetime.datetime(2025, 1, 24, 0, 0),
-   #      'purchase_deadline': datetime.datetime(2025, 1, 25, 0, 0),
-   #      'send_deadline': datetime.datetime(2025, 1, 26, 0, 0),
-   #      'created_at': datetime.datetime(2025, 1, 23, 0, 0),
-   #      'updated_at': datetime.datetime(2025, 1, 23, 0, 0),
-   #      'users': [1, 2],
-   #      'events': [1, 2]
-   #  },
-   #  {
-   #          'id': 3,
-   #          'lowest_price': 10000,
-   #          'highest_price': 20000,
-   #          'form_deadline': datetime.datetime(2025, 1, 24, 0, 0),
-   #          'purchase_deadline': datetime.datetime(2025, 1, 25, 0, 0),
-   #          'send_deadline': datetime.datetime(2025, 1, 26, 0, 0),
-   #          'created_at': datetime.datetime(2025, 1, 23, 0, 0),
-   #          'updated_at': datetime.datetime(2025, 1, 23, 0, 0),
-   #          'users': [1, 2],
-   #          'events': [1, 2]
-   #  }
-   #  ]
+    # answer = [{
+    #     'id': 1,
+    #     'lowest_price': 100,
+    #     'highest_price': 200,
+    #     'form_deadline': datetime.datetime(2025, 1, 24, 0, 0),
+    #     'purchase_deadline': datetime.datetime(2025, 1, 25, 0, 0),
+    #     'send_deadline': datetime.datetime(2025, 1, 26, 0, 0),
+    #     'created_at': datetime.datetime(2025, 1, 23, 0, 0),
+    #     'updated_at': datetime.datetime(2025, 1, 23, 0, 0),
+    #     'users': [1, 2],
+    #     'events': [1, 2]
+    # },
+    # {
+    #     'id': 2,
+    #     'lowest_price': 1000,
+    #     'highest_price': 2000,
+    #     'form_deadline': datetime.datetime(2025, 1, 24, 0, 0),
+    #     'purchase_deadline': datetime.datetime(2025, 1, 25, 0, 0),
+    #     'send_deadline': datetime.datetime(2025, 1, 26, 0, 0),
+    #     'created_at': datetime.datetime(2025, 1, 23, 0, 0),
+    #     'updated_at': datetime.datetime(2025, 1, 23, 0, 0),
+    #     'users': [1, 2],
+    #     'events': [1, 2]
+    # },
+    # {
+    #         'id': 3,
+    #         'lowest_price': 10000,
+    #         'highest_price': 20000,
+    #         'form_deadline': datetime.datetime(2025, 1, 24, 0, 0),
+    #         'purchase_deadline': datetime.datetime(2025, 1, 25, 0, 0),
+    #         'send_deadline': datetime.datetime(2025, 1, 26, 0, 0),
+    #         'created_at': datetime.datetime(2025, 1, 23, 0, 0),
+    #         'updated_at': datetime.datetime(2025, 1, 23, 0, 0),
+    #         'users': [1, 2],
+    #         'events': [1, 2]
+    # }
+    # ]
     return answer
 
 @app.route('/get_teams_info')
