@@ -1,7 +1,6 @@
 let wDialog = document.getElementById("WDialog");
 const Button = document.getElementById("close");
 const Button1 = document.getElementById("close1");
-let info = document.getElementById("chechbuy1");
 
 Button.addEventListener('click', () => {
     wDialog.close();
@@ -9,10 +8,6 @@ Button.addEventListener('click', () => {
 
 Button1.addEventListener('click', () => {
     wDialog.close();
-})
-
-info.addEventListener('click', ()=>{
-    wDialog.showModal();
 })
 
 async function init() {
@@ -42,14 +37,14 @@ async function init() {
                 recipient.contentEditable = true
 
                 let form = document.createElement('td')
-                form.textContent = `${user.status >= 1 ? "Анкета заполнена": "Анкета не заполнена"}`
+                form.textContent = `${user.status >= 0 ? "Анкета заполнена": "Анкета не заполнена"}`
                 form.style.color = `${user.status >= 1 ? "#00ff00" : "#ff0000"}`
 
                 let cheque = document.createElement('td')
-                cheque.textContent = `${user.status >= 2 ? "Загружен": "Не загружен"}`
+                cheque.textContent = `${user.status >= 1 ? "Загружен": "Не загружен"}`
 
                 let sending = document.createElement('td')
-                sending.textContent = `${user.status >= 3 ? "Отправлен": "Не отправлен"}`
+                sending.textContent = `${user.status >= 2 ? "Отправлен": "Не отправлен"}`
 
                 tr.appendChild(name)
                 tr.appendChild(recipient)
@@ -102,7 +97,7 @@ async function saveUsers(event) {
                             recipient.santa = Number(user.id)
                         }
                         if (child.name == 'cheque_status') {
-                            user.status = ((newStatus.textContent == 'Требуется подтверждение') || (newStatus.textContent == 'Не загружен')) ? 2 : 1
+                            user.status = ((newStatus.textContent == 'Загружен') || (newStatus.textContent == 'Не загружен')) ? 2 : 1
                         }
                     }
                 }
