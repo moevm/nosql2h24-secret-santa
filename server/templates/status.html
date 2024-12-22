@@ -12,7 +12,7 @@
             <div style="width: 525px; justify-content:space-between; align-items: center; display: flex; flex-direction: column;">
                 <img  src="../static/img/Frame 2.png/">
                 <div class="groupButton">
-                    <button class="buttonP">Экспортировать данные</button>
+                    <button class="buttonP" id="export">Экспортировать данные</button>
                     <button class="buttonP" onclick="window.location.href='/profile'">Анкета</button>
                     <button class="buttonPD" disabled>Текущее состояние</button>
                     <button class="confirm">Подтвердить получение подарка</button>
@@ -76,5 +76,6 @@
             </div>
         </div>
         <script src="{{ url_for('static', filename='js/player_page.js') }}"></script>
+        <script  src="{{ url_for('static', filename='js/export.js') }}"></script>
     </body>
 </html>

@@ -12,7 +12,7 @@
             <div style="width: 525px; justify-content:first baseline; align-items: center; display: flex; flex-direction: column;">
                 <img  src="../static/img/Frame 2.png/">
                 <div class="groupButton">
-                    <button class="buttonP">Экспортировать данные</button>
+                    <button class="buttonP" id="export">Экспортировать данные</button>
                     <button class="buttonPD" disabled>Анкета</button>
                     <button class="buttonP" onclick="window.location.href='/status'">Текущее состояние</button>
                 </div>
@@ -35,5 +35,6 @@
                 </form>
             </div>
         </div>
+        <script  src="{{ url_for('static', filename='js/export.js') }}"></script>
     </body>
 </html>

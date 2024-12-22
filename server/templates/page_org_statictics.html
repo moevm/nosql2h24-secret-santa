@@ -16,7 +16,7 @@
             <div style="width: 525px; justify-content:first baseline; align-items: center; display: flex; flex-direction: column;">
                 <img  src="../static/img/Frame 2.png/">
                 <div class="groupButton">
-                    <button class="buttonP">Экспортировать данные</button>
+                    <button class="buttonP" id="export">Экспортировать данные</button>
                     <button class="buttonPD" disabled>Статистика команды</button>
                     <button class="buttonP" onclick="window.location.href=`/host/${game_id}`">Данные об игроках</button>
                 </div>
@@ -32,5 +32,6 @@
             </div>
         </div>
         <script src="{{ url_for('static', filename='js/org_page.js') }}"></script>
+        <script  src="{{ url_for('static', filename='js/export.js') }}"></script>
     </body>
 </html>

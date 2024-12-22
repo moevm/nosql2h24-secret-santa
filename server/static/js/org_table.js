@@ -1,7 +1,6 @@
 let wDialog = document.getElementById("WDialog");
 const Button = document.getElementById("close");
 const Button1 = document.getElementById("close1");
-const exportButton = document.getElementById('export');
 
 Button.addEventListener('click', () => {
     wDialog.close();
@@ -11,7 +10,6 @@ Button1.addEventListener('click', () => {
     wDialog.close();
 })
 
-exportButton.addEventListener('click', exportToJSON);
 
 async function init() {
     console.log(game_id);
@@ -121,32 +119,6 @@ async function saveUsers(event) {
     })
 }
 
-async function exportToJSON() {
-    await fetch(new URL('/get_list_people', 'http://localhost:8000').href, {
-                method: "GET",
-                headers: {
-                'Accept': 'application/json',
-                "Content-type": "application/json; charset=UTF-8"
-    }})
-    .then(res => res.json())
-    .then(content => {
-        const jsonString = JSON.stringify(content, null, 2);
-        const blob = new Blob([jsonString], { type: "application/json" });
-
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "data.json";
-
-        document.body.appendChild(a);
-        a.click();
-
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-    })
-
-
-}
 
 
 init()

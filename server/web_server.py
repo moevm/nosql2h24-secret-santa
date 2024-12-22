@@ -280,7 +280,7 @@ def get_actions_statistics():
     #запрос на получение всех событий
     actions = []
     # actions = [{'player_id': 2, 'type': 2, 'date': datetime.datetime(2024, 11, 21, 0, 0)},
-    #            {'player_id': 1, 'type': 1, 'date': datetime.datetime(2024, 12, 12, 0, 0)}]
+    #             {'player_id': 1, 'type': 1, 'date': datetime.datetime(2024, 12, 12, 0, 0)}]
     for action in actions:
         statistics[action['type']] += 1
     return statistics
@@ -530,6 +530,8 @@ def export_db():
     # вместо filename - название файла для экспорта. если всё норм, то export_db вернёт True
     if not db.export_db("filename"):
         export_status = 500
+    # в return можно прокинуть данные как словарик (пример ниже) и они сохранятся в json
+    # return {'abc': 'abc', 'dfd': 5, 'dsas': 6}
     return app.response_class(status=export_status)
 
 # @app.route('/import_db', methods=['POST'])
