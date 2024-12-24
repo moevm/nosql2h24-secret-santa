@@ -181,52 +181,8 @@ def get_list_team():
 
 @app.route('/get_teams_info')
 def get_teams_info():
-    teams_info = []
-    games = get_list_team()
-    users = get_list_people()
-
-    for game in games:
-        team_info = {}
-        team_info.update({'id': game['id']})
-        team_info.update({'players_num': len(game['users'])})
-        team_info.update({'form_date': game['form_deadline']})
-        team_info.update({'purchase_date': game['purchase_deadline']})
-        team_info.update({'send_date': game['send_deadline']})
-        team_info.update({'start_price': game['lowest_price']})
-        team_info.update({'end_price': game['highest_price']})
-        forms = 0
-        cheques = 0
-        sends = 0
-        got_gifts = 0
-        for user in users:
-            if user['id'] in game['users']:
-                if user['is_host']:
-                    team_info.update({'admin_name': user['name']})
-                else:
-                    if user['status'] == 3:
-                        forms += 1
-                        cheques += 1
-                        sends += 1
-                        got_gifts += 1
-                    if user['status'] == 2:
-                        forms += 1
-                        cheques += 1
-                        sends += 1
-                    if user['status'] == 1:
-                        forms += 1
-                        cheques += 1
-                    if user['status'] == 0:
-                        forms += 1
-        team_info.update({'form_num': forms})
-        team_info.update({'accepted_cheques': cheques})
-        team_info.update({'not_accepted_cheques': 0})
-        team_info.update({'sent_gifts': sends})
-        team_info.update({'got_gifts': got_gifts})
-        teams_info.append(team_info)
-    return teams_info
-
-
-
+    answer = db.games_list()
+    return answer
 
 @app.route('/post_new_team', methods=['POST'])
 def post_new_team():
@@ -534,17 +490,11 @@ def export_db():
     # return {'abc': 'abc', 'dfd': 5, 'dsas': 6}
     return app.response_class(status=export_status)
 
-# @app.route('/import_db', methods=['POST'])
-# def import_db():
-#     # db.import_db()
-#     return app.response_class(status=200)
+@app.route('/import_db', methods=['POST'])
+ def import_db():
+     # db.import_db()
+     return app.response_class(status=200)
 
-
-@app.route('/search/<entity>')
-def get_entity(entity):
-    #entity - название сущности для search_entity методов Database
-    #нужно передать json с полями, по которым искать
-    return flask.render_template('player_page.html')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8000)

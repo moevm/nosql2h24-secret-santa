@@ -36,3 +36,13 @@ def restore_db(db, import_json):
     max_eid = len(json_colls["events"]) + 1
 
     return max_uid, max_gid, max_eid
+
+
+def restore_game(db, import_json):
+    users = json.loads(import_json)
+    col = db["users"]
+    col.insert_many(users)
+
+def export_game(db):
+    users = {}
+    return users

@@ -1,7 +1,7 @@
 from pymongo import MongoClient
 from .get_db import *
 from .add_db import *
-from .imp_exp import save_db, restore_db
+from .imp_exp import *
 
 class Database:
   def __init__(self, connection_str, db_name):
@@ -15,6 +15,9 @@ class Database:
 
   def games_list(self):
     return get_games(self.db)
+    
+  def events_list(self):
+    return get_events(self.db)  
 
   def register_game(self, team_info):
     host = team_info["admin"]

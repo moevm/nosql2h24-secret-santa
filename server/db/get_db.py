@@ -14,6 +14,14 @@ def get_users(db):
     user.pop('_id')
     users.append(user)
   return users
+  
+def get_events(db):
+  events_coll = db["events"]
+  events = []
+  for event in events_coll.find():
+    event.pop('_id')
+    events.append(event)
+  return events  
 
 def find_one(db, col, object_id):
   documents = db[col]
