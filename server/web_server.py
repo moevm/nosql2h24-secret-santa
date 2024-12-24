@@ -490,10 +490,10 @@ def export_db():
     # return {'abc': 'abc', 'dfd': 5, 'dsas': 6}
     return app.response_class(status=export_status)
 
-@app.route('/import_db', methods=['POST'])
- def import_db():
-     # db.import_db()
-     return app.response_class(status=200)
+#@app.route('/import_db', methods=['POST'])
+#def import_db():
+#     # db.import_db()
+#     return app.response_class(status=200)
 
 
 if __name__ == '__main__':
