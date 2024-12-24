@@ -70,59 +70,6 @@ def host(id):
 @app.route('/get_list_people')
 def get_list_people():
     return db.users_list()
-    # return [{
-    #     #'_id': ObjectId('6722d278ee5e086ddmeff8b0'),
-    #     'id': 1,
-    #     'name': 'test_user1',
-    #     'email': 'test_email1@mail.com',
-    #     'password': 'aafewfwefg',
-    #     'is_host': True,
-    #     'created_at': datetime.datetime(2024, 11, 11, 0, 0),
-    #     'updated_at': datetime.datetime(2024, 11, 12, 0, 0)
-    # },
-    # {
-    #     #'_id': ObjectId('6722d278ee5e086effffuyuggb0'),
-    #     'id': 2,
-    #     'name': 'test_user2',
-    #     'email': 'test_email2@mail.com',
-    #     'password': 'hnhytresfsd',
-    #     'is_host': False,
-    #     'address': 'nevsky str. 17',
-    #     'index': 111111,
-    #     'phone': 89999999999,
-    #     'status': 1,
-    #     'delivery_type': 1,
-    #     'wishlist': 'sweets, computer',
-    #     'stoplist': 'books ',
-    #     'recipient': 3,
-    #     'santa': 3,
-    #     'got_gift': False,
-    #     'created_at': datetime.datetime(2024, 11, 11, 0, 0),
-    #     'updated_at': datetime.datetime(2024, 11, 12, 0, 0),
-    #     'wrong_gift': False,
-    # },
-    # {
-    #     #'_id': ObjectId('6722d278ee5e086effffuyuggb0'),
-    #     'id': 3,
-    #     'name': 'test_user3',
-    #     'email': 'test_email3@mail.com',
-    #     'password': 'hnhytresfsd',
-    #     'is_host': False,
-    #     'address': 'nevsky str. 17',
-    #     'index': 111111,
-    #     'phone': 89999999999,
-    #     'status': 1,
-    #     'delivery_type': 1,
-    #     'wishlist': 'flowers;money',
-    #     'stoplist': 'candles',
-    #     'recipient': 2,
-    #     'santa': 2,
-    #     'got_gift': False,
-    #     'created_at': datetime.datetime(2024, 11, 11, 0, 0),
-    #     'updated_at': datetime.datetime(2024, 11, 12, 0, 0),
-    #     'wrong_gift': False,
-    # },
-    # ]
 
 @app.route('/get_list_people_from_team/<game_id>')
 def get_list_people_from_team(game_id):
@@ -140,43 +87,6 @@ def get_list_people_from_team(game_id):
 @app.route('/get_list_team')
 def get_list_team():
     answer = db.games_list()
-    # answer = [{
-    #     'id': 1,
-    #     'lowest_price': 100,
-    #     'highest_price': 200,
-    #     'form_deadline': datetime.datetime(2025, 1, 24, 0, 0),
-    #     'purchase_deadline': datetime.datetime(2025, 1, 25, 0, 0),
-    #     'send_deadline': datetime.datetime(2025, 1, 26, 0, 0),
-    #     'created_at': datetime.datetime(2025, 1, 23, 0, 0),
-    #     'updated_at': datetime.datetime(2025, 1, 23, 0, 0),
-    #     'users': [1, 2],
-    #     'events': [1, 2]
-    # },
-    # {
-    #     'id': 2,
-    #     'lowest_price': 1000,
-    #     'highest_price': 2000,
-    #     'form_deadline': datetime.datetime(2025, 1, 24, 0, 0),
-    #     'purchase_deadline': datetime.datetime(2025, 1, 25, 0, 0),
-    #     'send_deadline': datetime.datetime(2025, 1, 26, 0, 0),
-    #     'created_at': datetime.datetime(2025, 1, 23, 0, 0),
-    #     'updated_at': datetime.datetime(2025, 1, 23, 0, 0),
-    #     'users': [1, 2],
-    #     'events': [1, 2]
-    # },
-    # {
-    #         'id': 3,
-    #         'lowest_price': 10000,
-    #         'highest_price': 20000,
-    #         'form_deadline': datetime.datetime(2025, 1, 24, 0, 0),
-    #         'purchase_deadline': datetime.datetime(2025, 1, 25, 0, 0),
-    #         'send_deadline': datetime.datetime(2025, 1, 26, 0, 0),
-    #         'created_at': datetime.datetime(2025, 1, 23, 0, 0),
-    #         'updated_at': datetime.datetime(2025, 1, 23, 0, 0),
-    #         'users': [1, 2],
-    #         'events': [1, 2]
-    # }
-    # ]
     return answer
 
 @app.route('/get_teams_info')
@@ -193,16 +103,14 @@ def post_new_team():
 @app.route('/update_user', methods=['POST'])
 def update_user():
     user_info = json.loads(flask.request.data)
-    print(user_info)
-    #обновить информацию об игроке в бд
+    db.update_user(user_info)
     return app.response_class(status=200)
 
 
 @app.route('/update_users', methods=['POST'])
 def update_users():
     users = json.loads(flask.request.data)
-    print(users)
-    #обновить всю информацию о юзерах (по сути полностью стереть старую и записать новую)
+    db.update_users(users)
     return app.response_class(status=200)
 
 
@@ -477,24 +385,28 @@ def get_filtered_games():
 @app.route('/import_db', methods=['POST'])
 def import_db():
     new_data = json.loads(flask.request.data)
-    print(new_data)
+    db.import_game(new_data)
     return app.response_class(status=200)
 
 @app.route('/export_db', methods=['POST'])
 def export_db():
     export_status = 200
     # вместо filename - название файла для экспорта. если всё норм, то export_db вернёт True
-    if not db.export_db("filename"):
-        export_status = 500
+    #if not db.export_db("filename"):
+    #    export_status = 500
     # в return можно прокинуть данные как словарик (пример ниже) и они сохранятся в json
     # return {'abc': 'abc', 'dfd': 5, 'dsas': 6}
-    return app.response_class(status=export_status)
+    return db.export_game(1)
 
-#@app.route('/import_db', methods=['POST'])
-#def import_db():
-#     # db.import_db()
-#     return app.response_class(status=200)
+@app.route('/export_db_all', methods=['POST'])
+def export_all():
+    export_status = 200
+    # вместо filename - название файла для экспорта. если всё норм, то export_db вернёт True
+    # if not db.export_db("filename"):
+    #    export_status = 500
+    # в return можно прокинуть данные как словарик (пример ниже) и они сохранятся в json
+    # return {'abc': 'abc', 'dfd': 5, 'dsas': 6}
+    return db.export_db()
 
-
-if __name__ == '__main__':
+if  __name__ == '__main__':
     app.run(host='0.0.0.0', port=8000)

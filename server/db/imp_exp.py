@@ -43,6 +43,7 @@ def restore_game(db, import_json):
     col = db["users"]
     col.insert_many(users)
 
-def export_game(db):
-    users = {}
-    return users
+def export_game(db, game_id):
+    users = db["users"]
+    gamers = users.find({"is_host": False})
+    return gamers

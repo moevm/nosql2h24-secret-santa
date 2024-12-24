@@ -2,6 +2,8 @@ from pymongo import MongoClient
 from .get_db import *
 from .add_db import *
 from .imp_exp import *
+from .statistic import *
+from .filter_db import *
 
 class Database:
   def __init__(self, connection_str, db_name):
@@ -59,7 +61,7 @@ class Database:
       print("синтаксически неверный JSON")
       return False
     self.user_id, self.game_id, self.event_id = max_ids
-
+    
   def search_host(self, fields):
     return search_host_w_fields(self.db, fields)
 
@@ -75,3 +77,41 @@ class Database:
 
   def search_event(self, fields):
     return search_events_w_fields(self.db, fields)
+
+  def get_game_participants(self, game_id):
+    game_filter = {"game_id": game_id}
+    return search_player_w_fields(self.db, game_filter)
+
+  def count_forms(self):
+    all = count_type("users")
+    forms = count_type_w_filter("users", "status")
+    return
+
+  def count_purchases(self):
+    pass
+
+  def count_senders(self):
+    pass
+
+  def count_all_users(self):
+    pass
+
+  def count_all_events(self):
+    pass
+
+  def count_all_games(self):
+    pass
+
+  def update_user(self, user_info):
+    add_user(user_info)
+
+  def update_users(self, users_info):
+    self.db["users"].drop()
+    self.db.create_collection("users")
+    self.db["users"].insert_many(users_info)
+
+  def import_game(self, game_json):
+    restore_game(self.db, game_json)
+
+  def export_game(self, game_id):
+    return export_game(self.db, game_id)
