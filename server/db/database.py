@@ -64,6 +64,10 @@ class Database:
     return search_host_w_fields(self.db, fields)
 
   def search_player(self, fields):
+    if "stoplist" in fields:
+      pass
+    if "wishlist" in fields:
+      pass
     return search_player_w_fields(self.db, fields)
 
   def search_game(self, fields):
