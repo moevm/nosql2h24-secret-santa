@@ -21,6 +21,7 @@ def get_events(db):
   for event in events_coll.find():
     event.pop('_id')
     events.append(event)
+  print(events)
   return events  
 
 def find_one(db, col, object_id):

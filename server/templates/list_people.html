@@ -9,15 +9,6 @@
     </head>
     <body> 
         <div class="pageList1">
-            <dialog class="dialog1" id="favDialog">
-                <div style="width: 678px; height: 600px">
-                    <span style=" font-weight: 700; ">Анкета пользователя<br/></span>
-                    <span style=" font-weight: 400; " id="user_info">Роль: игрок<br/>Имя: Иван<br/>Эл. почта: Ivan@yandex.ru<br/>Номер телефона: +7-(9**)-***-**-**<br/>Адрес доставки: г. Москва улица **** дом *** кв. **<br/>Почтовый индекс: ******<br/>Пожелания и что дарить не стоит: Мне хотелось бы получить на Новый год много интересных и вкусных сладостей:)<br/><br/></span>
-                    <span style=" font-weight: 700; ">Информация о команде<br/></span>
-                    <span style=" font-weight: 400; " id="team_info">Номер команды: 1<br/>Организатор команды: Артем<br/><br/></span>
-                </div>
-                <button id="close">Cancel</button>
-            </dialog>
             <dialog class="dialigF2" id="FDialog2">
                 <div>
                     <div style="display: flex; flex-direction: row;">
@@ -26,6 +17,7 @@
                             <div id="role">
                                 <div class="radio"><label><input type="radio" name="role[]" value="1" id="play"> Игрок</label></div>
                                 <div class="radio"><label><input type="radio" name="role[]" value="2" id="org"> Организатор</label></div>
+                                <button onclick="resetRadioButtons('role[]')">Сбросить выбор</button>
                             </div>
                         </div>
                         <div style="display: flex; flex-direction: column; margin-left: 4%;">
@@ -43,6 +35,7 @@
                                 <div class="radio"><label><input type="radio" name="type_send[]" value="2" id="2S"> Сертификат</label></div>
                                 <div class="radio"><label><input type="radio" name="type_send[]" value="3" id="3S"> Подарок по почте</label></div>
                                 <div class="radio"><label><input type="radio" name="type_send[]" value="4" id="4S"> Подарок другими сервисами</label></div>
+                                <button onclick="resetRadioButtons('type_send[]')">Сбросить выбор</button>
                             </div>
                         </div> 
                     </div>

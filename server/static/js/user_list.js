@@ -1,13 +1,13 @@
-const Button = document.getElementById("close");
-const favDialog = document.getElementById("favDialog");
-const dialog = document.querySelector("dialog");
+//const Button = document.getElementById("close");
+//const favDialog = document.getElementById("favDialog");
+//const dialog = document.querySelector("dialog");
 const Button2 = document.getElementById("closeF2");
 const FD2 = document.getElementById("FDialog2");
 const filterButton = document.getElementById('Bfilter');
 
-Button.addEventListener('click', () => {
-    dialog.close();
-})
+//Button.addEventListener('click', () => {
+//    dialog.close();
+//})
 
 Button2.addEventListener('click', () => {
     FD2.close();
@@ -20,6 +20,24 @@ window.addEventListener("load", init);
 
 function Filter2(){
     FD2.showModal();
+}
+
+function resetRadioButtons(groupName) {
+    const radios = document.querySelectorAll(`input[name="${groupName}"]`);
+    radios.forEach(radio => {
+        radio.checked = false;
+    });
+    document.getElementById('name-player').disabled = false;
+    document.getElementById('address').disabled = false;
+    document.getElementById('wishlist').disabled = false;
+    document.getElementById('stoplist').disabled = false;
+    document.getElementById('1A').disabled = false;
+    document.getElementById('2A').disabled = false;
+    document.getElementById('3A').disabled = false;
+    document.getElementById('1S').disabled = false;
+    document.getElementById('2S').disabled = false;
+    document.getElementById('3S').disabled = false;
+    document.getElementById('4S').disabled = false;
 }
 
 document.querySelectorAll('input[type="radio"][name="role[]"]').forEach(radio => {
@@ -175,25 +193,35 @@ function insertInfo(content) {
         div.id = `${index}_human`;
 
         div.addEventListener('click', () => {
-            const userInfo = document.getElementById('user_info');
-            userInfo.innerHTML = `
-                Роль: ${item.is_host ? 'организатор' : 'игрок'}<br/>
-                Имя: ${item.name}<br/>
-                Эл. почта: ${item.email}<br/>
-                Номер телефона: ${item.phone ?? '-'}<br/>
-                Адрес доставки: ${item.address ?? '-'}<br/>
-                Почтовый индекс: ${item.index ?? '-'}<br/>
-                Пожелание и что дарить не стоит: ${item.wishlist ?? '-'} ${item.stoplist ?? '-'}
-            <br/><br/>`;
-
-            const teamInfo = document.getElementById('team_info');
-            teamInfo.innerHTML = `Номер команды: ${item.game_id}<br/><br/>`;
-
-            favDialog.showModal();
+            sessionStorage.setItem('selectedUser', JSON.stringify(item));
+            window.location.href = '/list_people_number';
         });
 
         list.appendChild(div);
     });
+}
+
+function displaySelectedUser() {
+    const selectedUser = JSON.parse(sessionStorage.getItem('selectedUser'));
+
+    if (selectedUser) {
+        const userInfo = document.getElementById('user_info');
+        const teamInfo = document.getElementById('team_info');
+
+        if (userInfo && teamInfo) {
+            userInfo.innerHTML = `
+                Роль: ${selectedUser.is_host ? 'организатор' : 'игрок'}<br/>
+                Имя: ${selectedUser.name}<br/>
+                Эл. почта: ${selectedUser.email}<br/>
+                Номер телефона: ${selectedUser.phone ?? '-'}<br/>
+                Адрес доставки: ${selectedUser.address ?? '-'}<br/>
+                Почтовый индекс: ${selectedUser.index ?? '-'}<br/>
+                Пожелание и что дарить не стоит: ${selectedUser.wishlist ?? '-'} ${selectedUser.stoplist ?? '-'}
+            <br/><br/>`;
+
+            teamInfo.innerHTML = `Номер команды: ${selectedUser.game_id}<br/><br/>`;
+        }
+    }
 }
 
 async function init() {

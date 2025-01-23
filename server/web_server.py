@@ -47,6 +47,10 @@ def statistics_org(game_id):
 def list_people():
     return flask.render_template('list_people.html')
 
+@app.route('/list_people_number')
+def list_people_n():
+    return flask.render_template('list_people_number.html')
+
 @app.route('/list_team')
 def list_team():
     return flask.render_template('list_team.html')
@@ -113,8 +117,21 @@ def get_user_page(username):
 
 @app.route('/get_actions')
 def get_actions():
-    actions_list = db.events_list()
-    return actions_list
+    actions_types = get_actions_types()
+    user_list = db.users_list()
+    
+    enum = ["form", "bought", "sent", "got_gift"]
+    i = 0 
+
+    actions = db.events_list()
+    statistics = ['' for _ in range(len(actions))]
+    for action in actions:
+        for user in user_list:
+            if action['player_id'] == user['id']:
+               statistics[i] +=  user['name']
+        statistics[i] += ' ' + actions_types[enum[action['type'] - 1]]
+        i += 1
+    return statistics
 
 
 @app.route('/get_actions_statistics')

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style/style_admin_pages.css') }}">
+        <link href="https://fonts.googleapis.com/css2?family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Карточка игрока</title>
+    </head>
+    <body> 
+        <div class>
+            <div style="width: 678px; height: 600px">
+                <span style=" font-weight: 700; ">Анкета пользователя<br/></span>
+                <span style=" font-weight: 400; " id="user_info">Роль: игрок<br/>Имя: Иван<br/>Эл. почта: Ivan@yandex.ru<br/>Номер телефона: +7-(9**)-***-**-**<br/>Адрес доставки: г. Москва улица **** дом *** кв. **<br/>Почтовый индекс: ******<br/>Пожелания и что дарить не стоит: Мне хотелось бы получить на Новый год много интересных и вкусных сладостей:)<br/><br/></span>
+                <span style=" font-weight: 700; ">Информация о команде<br/></span>
+                <span style=" font-weight: 400; " id="team_info">Номер команды: 1<br/>Организатор команды: Артем<br/><br/></span>
+            </div>
+            </div>
+            <button id="close" onclick="window.location.href='/list_people'">Cancel</button>
+    </body>
+    <script src="{{ url_for('static', filename='js/user_list.js') }}"></script>
+    <script>
+        window.addEventListener('load', displaySelectedUser);
+    </script>
+</html>
