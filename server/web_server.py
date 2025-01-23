@@ -7,6 +7,7 @@ from db import database
 from src.utils import get_actions_types, get_delivery_types
 
 db = database.Database("mongodb://root:example@db:27017/", "secret_santa_db")
+
 app = Flask(__name__)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 
@@ -14,17 +15,17 @@ app.config['TEMPLATES_AUTO_RELOAD'] = True
 def index():
     return flask.render_template('index.html')
 
-@app.route('/registration')
-def registration():
-    return flask.render_template('registr_team1.html')
+@app.route('/register_players')
+def register_players():
+    return flask.render_template('register_players.html')
 
 @app.route('/login')
 def login():
     return flask.render_template('login_page.html')
 
-@app.route('/registration2')
-def registration2():
-    return flask.render_template('registr_team2.html')
+@app.route('/register_game_info')
+def register_game():
+    return flask.render_template('register_game_info.html')
 
 @app.route('/admin')
 def admin():
@@ -58,12 +59,12 @@ def list_action():
 def site_statistics():
     return flask.render_template('site_statistics.html')
 
-@app.route('/host/<id>')
-def host(id):
-    games = get_list_team()
-    for game in games:
-        if int(id) in game['users']:
-            return flask.render_template('host.html', game_id=game['id'])
+@app.route('/host/<gameid>')
+def host(gameid):
+    host = db.search_user({"is_host": True, "game_id":int(gameid)})
+    print(host)
+    if host:
+        return flask.render_template('host.html', game_id=int(gameid))
     return flask.render_template('login_page.html')
 
 
@@ -73,15 +74,7 @@ def get_list_people():
 
 @app.route('/get_list_people_from_team/<game_id>')
 def get_list_people_from_team(game_id):
-    users = get_list_people()
-    games = get_list_team()
-
-    game_users_list = []
-    for game in games:
-        if game['id'] == int(game_id):
-            for user in users:
-                if user['id'] in game['users'] and not user['is_host']:
-                    game_users_list.append(user)
+    game_users_list = db.search_user({"game_id":int(game_id)})
     return game_users_list
 
 @app.route('/get_list_team')
@@ -97,8 +90,8 @@ def get_teams_info():
 @app.route('/post_new_team', methods=['POST'])
 def post_new_team():
     team_info = json.loads(flask.request.data)
-    db.register_game(team_info)
-    return app.response_class(status=200)
+    game_id = db.register_game(team_info)
+    return {"game_id":game_id}
 
 @app.route('/update_user', methods=['POST'])
 def update_user():
@@ -120,19 +113,7 @@ def get_user_page(username):
 
 @app.route('/get_actions')
 def get_actions():
-    actions_types = get_actions_types()
-    #запрос на получение всех событий
-    actions = []
-    # actions = [{'player_id': 2, 'type': 2, 'date': datetime.datetime(2024, 11, 21, 0, 0)},
-    #            {'player_id': 1, 'type': 1, 'date': datetime.datetime(2024, 12, 12, 0, 0)}]
-
-    users = get_list_people()
-    actions_list = []
-    for action in actions:
-        for user in users:
-            if user['id'] == action['player_id']:
-                actions_list.append(f'{user["name"]} {actions_types[action["type"]]}')
-
+    actions_list = db.events_list()
     return actions_list
 
 
@@ -142,46 +123,29 @@ def get_actions_statistics():
     statistics = [0 for _ in range(len(actions_types))]
 
     #запрос на получение всех событий
-    actions = []
-    # actions = [{'player_id': 2, 'type': 2, 'date': datetime.datetime(2024, 11, 21, 0, 0)},
-    #             {'player_id': 1, 'type': 1, 'date': datetime.datetime(2024, 12, 12, 0, 0)}]
+    actions = db.events_list()
     for action in actions:
         statistics[action['type']] += 1
     return statistics
 
 @app.route('/get_forms_statistics')
 def get_form_statistics():
-    users = get_list_people()
-    answer = 0
-    for user in users:
-        if not user['is_host'] and user['status'] > 0:
-            answer += 1
-    return [answer, len(users) - answer]
+    return db.count_forms()
 
 
 @app.route('/get_gifts_sending_statistics')
 def get_gifts_sending_statistics():
-    users = get_list_people()
-    answer = 0
-    for user in users:
-        if not user['is_host'] and user['status'] >= 2:
-            answer += 1
-    return [answer, len(users) - answer]
+    return db.count_senders()
 
 
 @app.route('/get_gifts_buying_statistics')
 def get_gifts_buying_statistics():
-    users = get_list_people()
-    answer = 0
-    for user in users:
-        if not user['is_host'] and user['status'] >= 1:
-            answer += 1
-    return [answer, len(users) - answer]
+   return db.count_purchases()
 
 @app.route('/get_teams_troubles_statistics')
 def get_teams_troubles_statistics():
     teams = get_list_team()
-    users = get_list_people()
+    users = db.users_list()
     answer = 0
     teams_with_troubles = set()
     for team in teams:
@@ -194,24 +158,21 @@ def get_teams_troubles_statistics():
 
 @app.route('/get_teams_troubles')
 def get_teams_troubles():
-    teams = get_list_team()
-    users = get_list_people()
+    users = db.users_list()
     teams_with_form_troubles = set()
     teams_with_buying_gifts_troubles = set()
     teams_with_sending_gifts_troubles = set()
     teams_with_confirm_troubles = set()
-    for team in teams:
-        for user_id in team['users']:
-            for user in users:
-                if user['id'] == user_id and not user['is_host']:
-                    if user['status'] < 0:
-                        teams_with_form_troubles.add(team['id'])
-                    if user['status'] < 1:
-                        teams_with_buying_gifts_troubles.add(team['id'])
-                    if user['status'] < 2:
-                        teams_with_sending_gifts_troubles.add(team['id'])
-                    if user['status'] < 3:
-                        teams_with_confirm_troubles.add(team['id'])
+    for user in users:
+      if not user['is_host']:
+        if user['status'] == 'none' :
+          teams_with_form_troubles.add(user['game_id'])
+        if user['status'] == 'form' :
+          teams_with_buying_gifts_troubles.add(user['game_id'])
+        if user['status'] == 'bought' :
+          teams_with_sending_gifts_troubles.add(user['game_id'])
+        if not user['got_gift'] :
+          teams_with_confirm_troubles.add(user['game_id'])
 
     return [len(teams_with_form_troubles), len(teams_with_buying_gifts_troubles), len(teams_with_sending_gifts_troubles),
             len(teams_with_confirm_troubles)]
@@ -220,81 +181,39 @@ def get_teams_troubles():
 def get_all_game_statistics(game_id):
     games = get_list_team()
     users = get_list_people()
-
-    forms = 0
-    cheque = 0
-    sends = 0
-    for game in games:
-        if int(game_id) == game['id']:
-            for user_id in game['users']:
-                for user in users:
-                    if user_id == user['id'] and not user['is_host']:
-                        if user['status'] >= 0:
-                            forms += 1
-                        if user['status'] >= 1:
-                            cheque += 1
-                        if user['status'] >= 2:
-                            sends += 1
-            return [len(game['users']) - 1, forms, cheque, sends]
-    return [0, 0, 0, 0]
+    all_players = db.search_user({"is_host":False, "game_id": int(game_id)})
+    forms = db.search_user({"is_host":False, "status":"form", "game_id": int(game_id)})
+    cheque = db.search_user({"is_host":False, "status":"bought", "game_id": int(game_id)})
+    sends = db.search_user({"is_host":False, "status":"sent", "game_id": int(game_id)})
+    return [len(all_players), len(forms), len(cheque), len(sends)]
 
 
 @app.route('/get_game_statistics_form/<game_id>')
 def get_game_statistics_form(game_id):
-    games = get_list_team()
-    users = get_list_people()
-
-    forms = 0
-    for game in games:
-        if int(game_id) == game['id']:
-            for user_id in game['users']:
-                for user in users:
-                    if user_id == user['id'] and not user['is_host']:
-                        if user['status'] >= 0:
-                            forms += 1
-            return [forms, len(game['users']) - 1 - forms]
-    return [0, 0]
+    all_players = db.search_user({"is_host":False, "game_id": int(game_id)})
+    forms = db.search_user({"is_host":False, "status":"form", "game_id": int(game_id)})
+    return [len(forms), len(all_players) - len(forms)]
 
 @app.route('/get_game_statistics_cheques/<game_id>')
 def get_game_statistics_cheques(game_id):
-    games = get_list_team()
-    users = get_list_people()
-
-    cheques = 0
-    for game in games:
-        if int(game_id) == game['id']:
-            for user_id in game['users']:
-                for user in users:
-                    if user_id == user['id'] and not user['is_host']:
-                        if user['status'] >= 1:
-                            cheques += 1
-            return [cheques, 0, len(game['users']) - 1 - cheques]
-    return [0, 0, 0]
+    all_players = db.search_user({"is_host":False, "game_id": int(game_id)})
+    cheque = db.search_user({"is_host":False, "status":"bought", "game_id": int(game_id)})
+    return [len(cheques), 0, len(all_players) - len(cheques)]
 
 @app.route('/get_game_statistics_sends/<game_id>')
 def get_game_statistics_sends(game_id):
-    games = get_list_team()
-    users = get_list_people()
-
-    sends = 0
-    for game in games:
-        if int(game_id) == game['id']:
-            for user_id in game['users']:
-                for user in users:
-                    if user_id == user['id'] and not user['is_host']:
-                        if user['status'] >= 2:
-                            sends += 1
-            return [sends, len(game['users']) - 1 - sends]
-    return [0, 0]
+    all_players = db.search_user({"is_host":False, "game_id": int(game_id)})
+    sends = db.search_user({"is_host":False, "status":"sent", "game_id": int(game_id)})
+    return [len(sends), len(all_players) - len(sends)]
 
 @app.route('/get_hosts')
 def get_hosts():
     users = get_list_people()
-    hosts = []
+    filtered_users = []
     for user in users:
         if user['is_host']:
-            hosts.append(user)
-    return hosts
+            filtered_users.append(user);
+    return filtered_users
 
 @app.route('/get_filtered_players', methods=['POST'])
 def get_filtered_players():
@@ -396,7 +315,7 @@ def export_db():
     #    export_status = 500
     # в return можно прокинуть данные как словарик (пример ниже) и они сохранятся в json
     # return {'abc': 'abc', 'dfd': 5, 'dsas': 6}
-    return db.export_game(1)
+    return db.export_db("db.json")
 
 @app.route('/export_db_all', methods=['POST'])
 def export_all():

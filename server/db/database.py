@@ -4,13 +4,12 @@ from .add_db import *
 from .imp_exp import *
 from .statistic import *
 from .filter_db import *
+from .test_data import *
 
 class Database:
   def __init__(self, connection_str, db_name):
     self.db = MongoClient(connection_str).get_database(db_name)
-    self.game_id = 1
-    self.user_id = 1
-    self.event_id = 1
+    self.user_id, self.game_id, self.event_id = set_test_data(connection_str, db_name)
 
   def users_list(self):
     return get_users(self.db)
@@ -23,6 +22,7 @@ class Database:
 
   def register_game(self, team_info):
     host = team_info["admin"]
+    host_id = self.user_id
     host.update({"id": self.user_id, "game_id": self.game_id, "is_host": True})
     add_user(self.db, host)
     self.user_id += 1
@@ -33,7 +33,7 @@ class Database:
                                        "wrong_gift": False})
       add_user(self.db, player)
       self.user_id+=1
-
+    game_id = self.game_id
     add_game(self.db,
         {"form_date": team_info["form_date"],
               "purchase_date":team_info["purchase_date"],
@@ -43,6 +43,7 @@ class Database:
               "id": self.game_id
         })
     self.game_id+=1
+    return game_id
 
   def get_user(self, user_id):
     return find_one("users", self.db, user_id)
@@ -61,46 +62,43 @@ class Database:
       print("синтаксически неверный JSON")
       return False
     self.user_id, self.game_id, self.event_id = max_ids
-    
-  def search_host(self, fields):
-    return search_host_w_fields(self.db, fields)
 
-  def search_player(self, fields):
-    if "stoplist" in fields:
-      pass
-    if "wishlist" in fields:
-      pass
-    return search_player_w_fields(self.db, fields)
+  def search_user(self, filt):
+    return search_user_w_fields(self.db, filt)
 
-  def search_game(self, fields):
-    return search_games_w_fields(self.db, fields)
+  def search_game(self, filt):
+    return search_games_w_fields(self.db, filt)
 
-  def search_event(self, fields):
-    return search_events_w_fields(self.db, fields)
+  def search_event(self, filt):
+    return search_events_w_fields(self.db, filt)
 
   def get_game_participants(self, game_id):
     game_filter = {"game_id": game_id}
     return search_player_w_fields(self.db, game_filter)
 
   def count_forms(self):
-    all = count_type("users")
-    forms = count_type_w_filter("users", "status")
-    return
+    all_num = count_type("users")
+    forms_num = count_type_w_filter("users", {"is_host": False, "status": "form"})
+    return [forms_num, all_num]
 
   def count_purchases(self):
-    pass
+    all_num = count_type("users")
+    forms_num = count_type_w_filter("users", {"is_host": False, "status": "bought"})
+    return [forms_num, all_num]
 
   def count_senders(self):
-    pass
+    all_num = count_type("users")
+    forms_num = count_type_w_filter("users", {"is_host": False, "status": "sent"})
+    return [forms_num, all_num]
 
   def count_all_users(self):
-    pass
+    return count_type("users")
 
   def count_all_events(self):
-    pass
+    return count_type("events")
 
   def count_all_games(self):
-    pass
+    return count_type("games")
 
   def update_user(self, user_info):
     add_user(user_info)

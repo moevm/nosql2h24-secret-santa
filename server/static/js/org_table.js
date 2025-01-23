@@ -40,14 +40,14 @@ async function init() {
                 recipient.contentEditable = true
 
                 let form = document.createElement('td')
-                form.textContent = `${user.status >= 0 ? "Анкета заполнена": "Анкета не заполнена"}`
-                form.style.color = `${user.status >= 1 ? "#00ff00" : "#ff0000"}`
+                form.textContent = `${user.status == "form" ? "Анкета заполнена": "Анкета не заполнена"}`
+                form.style.color = `${user.status == "bought" ? "#00ff00" : "#ff0000"}`
 
                 let cheque = document.createElement('td')
-                cheque.textContent = `${user.status >= 1 ? "Загружен": "Не загружен"}`
+                cheque.textContent = `${user.status == "bought" ? "Загружен": "Не загружен"}`
 
                 let sending = document.createElement('td')
-                sending.textContent = `${user.status >= 2 ? "Отправлен": "Не отправлен"}`
+                sending.textContent = `${user.status >= "sent" ? "Отправлен": "Не отправлен"}`
 
                 tr.appendChild(name)
                 tr.appendChild(recipient)
@@ -100,7 +100,7 @@ async function saveUsers(event) {
                             recipient.santa = Number(user.id)
                         }
                         if (child.name == 'cheque_status') {
-                            user.status = ((newStatus.textContent == 'Загружен') || (newStatus.textContent == 'Не загружен')) ? 2 : 1
+                            user.status = ((newStatus.textContent == 'Загружен') || (newStatus.textContent == 'Не загружен')) ? "bought" : ("form" | "none")
                         }
                     }
                 }

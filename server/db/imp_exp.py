@@ -2,7 +2,7 @@ from bson.json_util import dumps
 import json
 
 def save_db(db, filename="dump.json"):
-    collections = db.collection_names()
+    collections = db.list_collection_names()
     db_dump_str = "{"
     delim = ""
     for i, collection_name in enumerate(collections):
@@ -18,12 +18,12 @@ def save_db(db, filename="dump.json"):
         jsonfile.write(str.encode(db_dump_str))
     except (IOError, OSError):
       print("ошибка записи")
-      return False
+      return 'False'
     except (FileNotFoundError, PermissionError, OSError):
       print("ошибка открытия файла")
-      return False
+      return 'False'
 
-    return True
+    return 'True'
 
 
 def restore_db(db, import_json):
@@ -45,5 +45,5 @@ def restore_game(db, import_json):
 
 def export_game(db, game_id):
     users = db["users"]
-    gamers = users.find({"is_host": False})
+    gamers = users.find({"is_host": 'False'})
     return gamers

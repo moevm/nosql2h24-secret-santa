@@ -18,6 +18,7 @@ window.addEventListener("load", init);
 function insertInfo(content) {
         let listT = document.getElementById('list_team');
         listT.innerHTML = "";
+        console.log(content.length);
         for (let i =0; i < content.length; i++){
             let div = document.createElement('div');
             div.style.display = "flex";

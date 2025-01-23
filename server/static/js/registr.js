@@ -39,7 +39,7 @@ function savePeople() {
     localStorage.setItem('team_info', JSON.stringify(teamInfo))
 }
 
-function saveMetaInfo() {
+async function saveMetaInfo() {
     let teamInfo = JSON.parse(localStorage.getItem('team_info'));
 
     let formDeadline = document.getElementById('form_date').value;
@@ -54,13 +54,16 @@ function saveMetaInfo() {
     teamInfo.start_price = startPrice;
     teamInfo.end_price = endPrice;
 
-    fetch(new URL('/post_new_team', 'http://localhost:8000').href, {
+    await fetch(new URL('/post_new_team', 'http://localhost:8000').href, {
                 method: "POST",
                 headers: {
                 'Accept': 'application/json',
                 "Content-type": "application/json; charset=UTF-8"
                 },
                 body: JSON.stringify(teamInfo)
+    }).then(res => res.json())
+    .then(content => {
+        window.location.href=`/host/${content["game_id"]}`
     })
     localStorage.clear();
 }

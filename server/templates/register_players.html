@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style/style_registr.css') }}">
+        <link href="https://fonts.googleapis.com/css2?family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Регистрация команды</title>
+    </head>
+    <body>
+        <div class="pageRegistr">
+            <div style="width: 525px; justify-content:first baseline; align-items: center; display: flex; flex-direction: column;">
+                <img src="{{ url_for('static', filename='img/Frame 2.png') }}"/>
+                <button id="nnext" class="next" onclick="savePeople();window.location.href='/register_game_info'">Продолжить</button>
+                <button id="button_pluz" onclick="addNewPlayer();" style="margin-top: 2%; cursor: pointer;; text-align: center; border: none; background-color: none;"><img  src="{{ url_for('static', filename='img/pluz.png') }}"/></button>
+            </div>
+            <div class="frame1">
+                <div class="maincontent"><div class="content">Регистрация команды</div></div>
+                <form class="form_registr_team" id="formParent">
+                    <input type="text" required style="width: 308px; height: 111px; background: white; border-radius: 10px; border: 5px black solid" placeholder="Введите имя организатора"/>  
+                    <input type="email" required style="width: 498px; height: 111px; background: white; border-radius: 10px; border: 5px black solid" placeholder="Введите адрес эл. почты организатора"/>
+                    <input type="text" required style="width: 308px; height: 111px; background: white; border-radius: 10px; border: 5px black solid" placeholder="Введите имя игрока"/>  
+                    <input type="email" required style="width: 498px; height: 111px; background: white; border-radius: 10px; border: 5px black solid" placeholder="Введите адрес эл. почты игрока"/>
+                </form>
+                
+            </div>
+        </div>
+    </body>
+    <script src="{{ url_for('static', filename='js/registr.js') }}"></script>
+</html>
