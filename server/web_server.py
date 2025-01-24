@@ -129,7 +129,8 @@ def get_actions():
         for user in user_list:
             if action['player_id'] == user['id']:
                statistics[i] +=  user['name']
-        statistics[i] += ' ' + actions_types[enum[action['type'] - 1]]
+        formatted_date = action['date'].strftime('%Y-%m-%d %H:%M:%S')
+        statistics[i] += ' ' + actions_types[enum[action['type'] - 1]] + ' ' + formatted_date
         i += 1
     return statistics
 
